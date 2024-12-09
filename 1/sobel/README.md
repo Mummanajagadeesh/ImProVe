@@ -41,7 +41,7 @@ G_x(x, y) = \sum_{i=-1}^{1} \sum_{j=-1}^{1} I(x+i, y+j) \cdot G_x(i+1, j+1)
 \
 $$
 
-#### Vertical Gradient \( G_y(x, y) \):
+#### Vertical Gradient $$\( G_y(x, y) \)$$:
 $$
 \
 G_y(x, y) = \sum_{i=-1}^{1} \sum_{j=-1}^{1} I(x+i, y+j) \cdot G_y(i+1, j+1)
