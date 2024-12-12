@@ -1,6 +1,5 @@
 module prewitt_edge_detection(
     input clk,
-    input rst
 );
     parameter ROWS = 242; 
     parameter COLS = 247;  
