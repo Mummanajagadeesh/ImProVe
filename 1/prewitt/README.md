@@ -133,4 +133,4 @@ The following images show the input image and the output image after applying th
 The following images show the input image and the output image after applying the horizontal Prewitt mask.
 
 ![Input Image](input_image.jpg) ![Horizontal Gradient Output](output_image_hor.jpg)
-```
+
