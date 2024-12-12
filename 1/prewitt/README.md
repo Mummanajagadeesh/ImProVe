@@ -110,7 +110,6 @@ The following steps are executed in sequence to complete the edge detection proc
    ```
    - Converts the output binary file (`output_image_hor.txt`) to the final `.jpg` image after the horizontal Prewitt operation.
 
-### Example Images
 
 #### Vertical Gradient Detection
 The following images show the input image and the output image after applying the vertical Prewitt mask.
