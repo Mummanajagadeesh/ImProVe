@@ -60,9 +60,9 @@ module prewitt_edge_detection(
             for (j = 0; j < COLS; j = j + 1) begin
 
                 if (j == COLS-1) begin
-                    $fwrite(output_file, "%0d", processed_pixel_data[i][j]);  // No space after the last value
+                    $fwrite(output_file, "%0d", processed_pixel_data[i][j]); 
                 end else begin
-                    $fwrite(output_file, "%0d ", processed_pixel_data[i][j]);  // Single space
+                    $fwrite(output_file, "%0d ", processed_pixel_data[i][j]);  
                 end
             end
 
