@@ -8,7 +8,7 @@ module prewitt_edge_detection(
     integer i, j;
     reg [7:0] pixel_data [0:ROWS-1][0:COLS-1];
     reg [7:0] processed_pixel_data [0:ROWS-1][0:COLS-1];
-    reg signed [15:0] sum_x, sum_y, edge_strength;
+    reg signed [15:0] sum_y;
     reg [7:0] temp_data;  
 
     initial begin
@@ -36,15 +36,13 @@ module prewitt_edge_detection(
 
                     processed_pixel_data[i][j] = 0;
                 end else begin
-                    sum_x = (pixel_data[i-1][j-1] + pixel_data[i-1][j] + pixel_data[i-1][j+1]) -
-                            (pixel_data[i+1][j-1] + pixel_data[i+1][j] + pixel_data[i+1][j+1]);
                     sum_y = (pixel_data[i-1][j-1] + pixel_data[i][j-1] + pixel_data[i+1][j-1]) -
                             (pixel_data[i-1][j+1] + pixel_data[i][j+1] + pixel_data[i+1][j+1]);
 
-                    edge_strength = $abs(sum_x) + $abs(sum_y);
-                    if (edge_strength > 255) edge_strength = 255;
+                    if (sum_y < 0) sum_y = -sum_y; // Absolute value
+                    if (sum_y > 255) sum_y = 255;
 
-                    processed_pixel_data[i][j] = edge_strength[7:0];
+                    processed_pixel_data[i][j] = sum_y[7:0];
                 end
             end
         end
@@ -69,7 +67,7 @@ module prewitt_edge_detection(
         end
         $fclose(output_file);
 
-        $display("Edge detection completed.");
+        $display("Edge detection with vertical mask completed.");
         $finish;
     end
 endmodule
