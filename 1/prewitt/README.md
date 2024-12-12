@@ -51,76 +51,64 @@ This implementation is done using **Icarus Verilog 12.0** for the hardware descr
 
 ### Code Flow
 
-1. **Image Input**: The input image is loaded in Python using libraries like OpenCV or PIL.
-2. **Convolution**: In Verilog, the image data is processed with the Prewitt kernels for both vertical and horizontal masks.
-3. **Edge Magnitude Calculation**: The magnitude of the gradient is computed and output as the edge-detected image.
-4. **Visualization**: The result is visualized as the edge-detected image, showing the identified edges clearly.
+The following is a step-by-step breakdown of the process using different code files:
 
-### Python Scripts
+1. **img2bin.py** – Converts the input image (in `.jpg` format) into a binary `.txt` format for further processing. The input image should already be in black-and-white (BW); if not, it must be converted beforehand.
+   - **Input**: `input_image.jpg`
+   - **Output**: `input_image.txt`
 
-#### img2bin.py
-This script converts the input image (in JPG format) to a binary format (if it is not already in black and white). The input is a grayscale image, and the output is a `.txt` file that stores the pixel data in binary.
+2. **prewitt-ver.v** – Implements the vertical Prewitt operator. This Verilog file reads the binary image and applies the vertical Prewitt mask.
+   - **Input**: `input_image.txt`
+   - **Output**: `output_image_ver.txt`
 
-**Input**: `input_image.jpg`  
-**Output**: `input_image.txt`
+3. **prewitt-hor.v** – Implements the horizontal Prewitt operator. This Verilog file reads the binary image and applies the horizontal Prewitt mask.
+   - **Input**: `input_image.txt`
+   - **Output**: `output_image_hor.txt`
 
-Command to run:
-```bash
-python img2bin.py input_image.jpg input_image.txt
-```
+4. **prewitt-v** and **prewitt-h** – These are intermediate files created by compiling the Verilog files using the `iverilog` command. These files are executed using the `vvp` command to simulate the operation of the Prewitt operators. The output files (`output_image_ver.txt` and `output_image_hor.txt`) are generated from these simulations.
 
-#### Verilog Code for Prewitt
+5. **bin2imgver.py** and **bin2imghor.py** – These Python scripts convert the binary `.txt` files (output from the Verilog simulations) back into `.jpg` images.
+   - **bin2imgver.py** – Converts `output_image_ver.txt` to a `.jpg` file after the vertical Prewitt operation.
+   - **bin2imghor.py** – Converts `output_image_hor.txt` to a `.jpg` file after the horizontal Prewitt operation.
 
-##### prewitt-ver.v (Vertical Prewitt)
-This Verilog module implements the vertical Prewitt edge detection filter. The input is a binary representation of the image, and the output is the edge-detected result after applying the vertical Prewitt mask.
+### Execution Steps
 
-**Input**: `input_image.txt`  
-**Output**: `output_image_ver.txt`
+The following steps are executed in sequence to complete the edge detection process:
 
-Command to run:
-```bash
-iverilog -o prewitt-ver.out prewitt-ver.v
-vvp prewitt-ver.out
-```
+1. **Convert Image to Binary (img2bin.py)**
+   ```bash
+   python .\bin2img.py
+   ```
+   - Converts the input image (`input_image.jpg`) to the binary file format (`input_image.txt`).
 
-##### prewitt-hor.v (Horizontal Prewitt)
-This Verilog module implements the horizontal Prewitt edge detection filter. The input is a binary representation of the image, and the output is the edge-detected result after applying the horizontal Prewitt mask.
+2. **Vertical Prewitt Operation (prewitt-ver.v)**
+   ```bash
+   iverilog -o prewitt-v .\prewitt-ver.v
+   vvp .\prewitt-v
+   ```
+   - The Verilog code (`prewitt-ver.v`) is compiled using `iverilog` to create the executable `prewitt-v`.
+   - The `vvp` command runs the simulation, generating `output_image_ver.txt`.
 
-**Input**: `input_image.txt`  
-**Output**: `output_image_hor.txt`
+3. **Convert Vertical Output to Image (bin2imgver.py)**
+   ```bash
+   python .\bin2imgver.py
+   ```
+   - Converts the output binary file (`output_image_ver.txt`) to the final `.jpg` image after the vertical Prewitt operation.
 
-Command to run:
-```bash
-iverilog -o prewitt-hor.out prewitt-hor.v
-vvp prewitt-hor.out
-```
+4. **Horizontal Prewitt Operation (prewitt-hor.v)**
+   ```bash
+   python .\bin2img.py
+   iverilog -o prewitt-h .\prewitt-h.v
+   vvp .\prewitt-h
+   ```
+   - Converts the input image again to binary (`input_image.txt`), then compiles the Verilog code (`prewitt-hor.v`) to create the executable `prewitt-h`.
+   - The `vvp` command is used to run the simulation, generating `output_image_hor.txt`.
 
-#### Intermediate Files
-Both `prewitt-ver.v` and `prewitt-hor.v` generate intermediate `.txt` files. These files store the result of applying the respective Prewitt masks (vertical or horizontal). The next step is to convert these text files back to images using Python scripts.
-
-### Converting .txt to .jpg
-
-#### bin2imghor.py
-This Python script takes the output of the horizontal Prewitt operation (`output_image_hor.txt`) and converts it back into a `.jpg` image for visualization.
-
-**Input**: `output_image_hor.txt`  
-**Output**: `output_image_hor.jpg`
-
-Command to run:
-```bash
-python bin2imghor.py output_image_hor.txt output_image_hor.jpg
-```
-
-#### bin2imgver.py
-This Python script takes the output of the vertical Prewitt operation (`output_image_ver.txt`) and converts it back into a `.jpg` image for visualization.
-
-**Input**: `output_image_ver.txt`  
-**Output**: `output_image_ver.jpg`
-
-Command to run:
-```bash
-python bin2imgver.py output_image_ver.txt output_image_ver.jpg
-```
+5. **Convert Horizontal Output to Image (bin2imghor.py)**
+   ```bash
+   python .\bin2imghor.py
+   ```
+   - Converts the output binary file (`output_image_hor.txt`) to the final `.jpg` image after the horizontal Prewitt operation.
 
 ### Example Images
 
@@ -133,4 +121,3 @@ The following images show the input image and the output image after applying th
 The following images show the input image and the output image after applying the horizontal Prewitt mask.
 
 ![Input Image](input_image.jpg) ![Horizontal Gradient Output](output_image_hor.jpg)
-
