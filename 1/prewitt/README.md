@@ -201,3 +201,12 @@ The following image shows the input image and the output image after applying th
 The following image shows the input image and the output image after applying dynamic normalization to the combined Prewitt operator.
 
 ![Input Image](input_image.jpg) ![Dynamic Normalized Output](output_image_combined_dynamic.jpg)
+
+---
+
+This implementation utilizes the following tools:
+
+
+**Icarus Verilog 12.0** for hardware description and simulation. This tool is used to compile the Verilog code for the Prewitt operator and perform edge detection in hardware simulation.
+
+**Python 3.12.1** for image processing and visualization. Python handles the conversion between image formats, binary data handling, and applies the edge detection processing to visualize the results.
