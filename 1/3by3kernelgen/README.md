@@ -1,8 +1,7 @@
-# README: Kernel Application and Outputs
+# Generalised approach for dealing with 3 by 3 kernels 
 
-This document specifies the process for applying convolutional kernels to an input image using the provided tools.
 
-## Tools and Process
+## Process
 
 1. **`kernel-gen.v`**:
    - Reads two input text files:
