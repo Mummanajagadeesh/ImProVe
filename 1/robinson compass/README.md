@@ -10,85 +10,109 @@ The Robinson compass uses the following 8 kernels for edge detection:
 
 
 
-- **N (North)**:
+It seems like the issue with the LaTeX rendering is specific to how the non-North direction masks are written or how your Markdown renderer handles them. The North mask is rendering correctly, so the issue might be related to inconsistencies in the other matrix definitions.
 
-  $$ 
-  \begin{bmatrix} 
-  -1 & 0 & 1 \\ 
-  -2 & 0 & 2 \\ 
-  -1 & 0 & 1 
-  \end{bmatrix} 
+Here's a potential fix for the LaTeX sections:
+
+1. Ensure uniform formatting for all matrices.
+2. Remove unnecessary blank spaces or incorrect characters.
+3. Make sure the Markdown renderer supports LaTeX and the correct syntax is being used.
+
+Here’s the corrected version of the kernel definitions for all directions:
+
+
+## Kernels for the Robinson Compass
+
+The Robinson compass uses the following 8 kernels for edge detection:
+
+**N (North)**:
+
+  $$
+  \begin{bmatrix}
+  -1 & 0 & 1 \\
+  -2 & 0 & 2 \\
+  -1 & 0 & 1
+  \end{bmatrix}
   $$
 
-- **S (South)**:
+**S (South)**:
 
-  $$ 
-  \begin{bmatrix} 
-  1 & 0 & -1 \\ 
-  2 & 0 & -2 \\ 
-  1 & 0 & -1 
-  \end{bmatrix} 
+  $$
+  \begin{bmatrix}
+  1 & 0 & -1 \\
+  2 & 0 & -2 \\
+  1 & 0 & -1
+  \end{bmatrix}
   $$
 
-- **E (East)**:
+**E (East)**:
 
-  $$ 
-  \begin{bmatrix} 
-  1 & 2 & 1 \\ 
-  0 & 0 & 0 \\ 
-  -1 & -2 & -1 
-  \end{bmatrix} 
+  $$
+  \begin{bmatrix}
+  1 & 2 & 1 \\
+  0 & 0 & 0 \\
+  -1 & -2 & -1
+  \end{bmatrix}
   $$
 
-- **W (West)**:
+**W (West)**:
 
-  $$ 
-  \begin{bmatrix} 
-  -1 & -2 & -1 \\ 
-  0 & 0 & 0 \\ 
-  1 & 2 & 1 
-  \end{bmatrix} 
+  $$
+  \begin{bmatrix}
+  -1 & -2 & -1 \\
+  0 & 0 & 0 \\
+  1 & 2 & 1
+  \end{bmatrix}
   $$
 
-- **NW (Northwest)**:
+**NW (Northwest)**:
 
-  $$ 
-  \begin{bmatrix} 
-  0 & 1 & 2 \\ 
-  -1 & 0 & 1 \\ 
-  -2 & -1 & 0 
-  \end{bmatrix} 
+  $$
+  \begin{bmatrix}
+  0 & 1 & 2 \\
+  -1 & 0 & 1 \\
+  -2 & -1 & 0
+  \end{bmatrix}
   $$
 
-- **NE (Northeast)**:
+**NE (Northeast)**:
 
-  $$ 
-  \begin{bmatrix} 
-  2 & 1 & 0 \\ 
-  1 & 0 & -1 \\ 
-  0 & -1 & -2 
-  \end{bmatrix} 
+  $$
+  \begin{bmatrix}
+  2 & 1 & 0 \\
+  1 & 0 & -1 \\
+  0 & -1 & -2
+  \end{bmatrix}
   $$
 
-- **SW (Southwest)**:
+**SW (Southwest)**:
 
-  $$ 
-  \begin{bmatrix} 
-  0 & -1 & -2 \\ 
-  1 & 0 & -1 \\ 
-  2 & 1 & 0 
-  \end{bmatrix} 
+  $$
+  \begin{bmatrix}
+  0 & -1 & -2 \\
+  1 & 0 & -1 \\
+  2 & 1 & 0
+  \end{bmatrix}
   $$
 
-- **SE (Southeast)**:
+**SE (Southeast)**:
 
-  $$ 
-  \begin{bmatrix} 
-  -2 & -1 & 0 \\ 
-  -1 & 0 & 1 \\ 
-  0 & 1 & 2 
-  \end{bmatrix} 
   $$
+  \begin{bmatrix}
+  -2 & -1 & 0 \\
+  -1 & 0 & 1 \\
+  0 & 1 & 2
+  \end{bmatrix}
+  $$
+
+
+
+### Recommendations:
+
+1. Test your Markdown file on a renderer that fully supports LaTeX (like GitHub, Jupyter Notebook, or Pandoc).
+2. If you're embedding the Markdown in a larger HTML file or a specific Markdown parser, verify that MathJax or KaTeX is properly configured to render LaTeX equations.
+
+Let me know if you continue to face issues, and I can assist further!
 
 
 These eight kernels correspond to the directions: North, South, East, West, Northwest, Northeast, Southwest, and Southeast.
