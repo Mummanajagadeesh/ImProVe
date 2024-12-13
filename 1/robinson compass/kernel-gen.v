@@ -41,7 +41,7 @@ module general_kernel_application(
         $fclose(input_file);
 
         // Read kernel data
-        kernel_file = $fopen("sw-robinson-compass-kernel.txt", "r");
+        kernel_file = $fopen("w-robinson-compass-kernel.txt", "r");
         if (kernel_file == 0) begin
             $display("Error: Cannot open kernel.txt.");
             $finish;
@@ -85,7 +85,7 @@ module general_kernel_application(
         end
 
         // Write output image
-        output_file = $fopen("output_image_sw_rc.txt", "w");
+        output_file = $fopen("output_image_w_rc.txt", "w");
         if (output_file == 0) begin
             $display("Error: Cannot open output_image_kernel_applied.txt.");
             $finish;
