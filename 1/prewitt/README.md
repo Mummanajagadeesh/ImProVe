@@ -202,6 +202,11 @@ The following image shows the input image and the output image after applying dy
 
 ![Input Image](input_image.jpg) ![Dynamic Normalized Output](output_image_combined_dynamic.jpg)
 
+### Binary Image with 127 Threshold
+
+![Input Image](input_image.jpg) ![Binary_Image](binaryimage.jpg)
+
+
 ---
 
 This implementation utilizes the following tools:
