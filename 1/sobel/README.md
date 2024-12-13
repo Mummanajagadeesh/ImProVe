@@ -1,120 +1,211 @@
-# Sobel Operator Algorithm
+# Sobel Operator in Edge Detection
 
-The Sobel operator is a discrete differentiation operator that computes an approximation of the gradient of the image intensity function. It is widely used in edge detection algorithms, as it highlights areas of the image where intensity changes sharply. This operator uses two convolution kernels, one for detecting horizontal edges and one for detecting vertical edges.
+The Sobel operator is a discrete differentiation operator used in edge detection. It works by convolving an image with a pair of kernels (masks) to compute the gradient in the horizontal and vertical directions. These gradients provide information about the rate of change in intensity at each pixel, which helps in detecting edges.
 
-### 1. Mathematical Background
+## Mathematical Definition
 
-The Sobel operator estimates the gradient magnitude at each pixel, using the first derivative of the image in both the horizontal and vertical directions. These gradients are calculated using convolution with two 3x3 kernels (masks), one for the horizontal direction $$\( G_x \)$$ and one for the vertical direction $$\( G_y \)$$:
+The Sobel operator uses two kernels to approximate the gradient of an image in the horizontal and vertical directions. The horizontal and vertical masks are defined as follows:
 
-#### Horizontal Sobel Kernel (Gx):
+For the vertical mask, \( G_y \):
+
 $$
-\
-G_x =
-\begin{bmatrix}
+G_y = \begin{bmatrix}
 -1 & 0 & 1 \\
 -2 & 0 & 2 \\
--1 & 0 & 1 \\
+-1 & 0 & 1
 \end{bmatrix}
-\
 $$
 
-#### Vertical Sobel Kernel (Gy):
+For the horizontal mask, \( G_x \):
+
 $$
-\
-G_y =
-\begin{bmatrix}
+G_x = \begin{bmatrix}
 -1 & -2 & -1 \\
  0 &  0 &  0 \\
- 1 &  2 &  1 \\
+ 1 &  2 &  1
 \end{bmatrix}
-\
 $$
 
-### 2. Convolution with Sobel Kernels
+Where:
+- The vertical mask detects edges that are aligned vertically (up-down).
+- The horizontal mask detects edges that are aligned horizontally (left-right).
 
-To compute the gradient of the image at a particular pixel, we convolve the image with the Sobel kernels. The convolution process for a pixel $$\( I(x, y) \)$$ involves multiplying the kernel values by the corresponding pixel values in the image and summing the results.
+## Process of Edge Detection
 
-#### Horizontal Gradient $$\( G_x(x, y) \)$$:
-$$
-\
-G_x(x, y) = \sum_{i=-1}^{1} \sum_{j=-1}^{1} I(x+i, y+j) \cdot G_x(i+1, j+1)
-\
-$$
+1. **Apply Convolution**: The Sobel operator is applied to the image by convolving the image with the masks. For each pixel in the image, the neighborhood around it is multiplied by the kernel, and the results are summed up. This results in two images: one for the vertical gradient (\( G_y \)) and one for the horizontal gradient (\( G_x \)).
 
-#### Vertical Gradient $$\( G_y(x, y) \)$$:
-$$
-\
-G_y(x, y) = \sum_{i=-1}^{1} \sum_{j=-1}^{1} I(x+i, y+j) \cdot G_y(i+1, j+1)
-\
-$$
-
-Here, $$\( I(x+i, y+j) \)$$ represents the pixel values from the image in the neighborhood of pixel $$\( (x, y) \)$$, and $$\( G_x(i+1, j+1) \)$$, $$\( G_y(i+1, j+1) \)$$ represent the values of the Sobel kernels.
-
-### 3. Gradient Magnitude and Direction
-
-Once the gradients $$\( G_x \)$$ and $$\( G_y \)$$ have been calculated, we can compute the gradient magnitude and direction for each pixel.
-
-#### Gradient Magnitude:
+2. **Magnitude Calculation**: The magnitude of the gradient at each pixel is computed by combining the results of the horizontal and vertical gradients:
 
 $$
-\
-M(x, y) = \sqrt{G_x(x, y)^2 + G_y(x, y)^2}
-\
+G = \sqrt{G_x^2 + G_y^2}
 $$
 
-The magnitude represents the strength of the edge at the pixel.
+3. **Thresholding**: To identify the edges, the magnitude is thresholded. Pixels with gradients above a certain threshold are considered part of the edge, while others are discarded.
 
-#### Gradient Direction:
+---
 
-$$
-\
-\theta(x, y) = \text{atan2}(G_y(x, y), G_x(x, y))
-\
-$$
+## New Steps Added
 
-The direction represents the angle of the edge at the pixel.
+### Combined Sobel Operator (Fixed Threshold)
 
-### 4. Edge Detection
+In this approach, we combine the magnitudes from both the vertical and horizontal gradients to determine the edge strength at each pixel. The combined edge strength is then truncated to a maximum value of 255 (fixed-point threshold). This ensures that any values above 255 are capped.
 
-Once the gradient magnitude is calculated, it can be used for edge detection. A common approach is to apply a threshold to the gradient magnitude. If the magnitude exceeds the threshold, the pixel is considered part of an edge; otherwise, it is not.
-
-### 5. Implementation Summary
-
-1. **Convolve the image with the Sobel kernels** $$\( G_x \)$$ and $$\( G_y \)$$.
-2. **Compute the gradient magnitudes** for each pixel.
-3. **Calculate the gradient directions** for each pixel.
-4. **Apply thresholding** (optional) to highlight edges.
-
-### 6. Example of Sobel Edge Detection
-
-Consider a 5x5 image:
+1. **Magnitude Calculation**: The combined magnitude is calculated as:
 
 $$
-\
-I =
-\begin{bmatrix}
-255 & 255 & 255 & 255 & 255 \\
-255 & 0 & 0 & 0 & 255 \\
-255 & 0 & 0 & 0 & 255 \\
-255 & 0 & 0 & 0 & 255 \\
-255 & 255 & 255 & 255 & 255 \\
-\end{bmatrix}
-\
+Edge_{strength} = \sqrt{G_x^2 + G_y^2}
 $$
 
-After applying the Sobel filters $$\( G_x \)$$ and $$\( G_y \)$$, the resulting gradient magnitudes will highlight the edges where there are sharp transitions in intensity.
+2. **Truncation**: If the calculated edge strength exceeds 255, it is set to 255.
 
-### 7. Advantages of Sobel Operator
+3. **Output**: The final image is generated using the truncated edge strengths.
 
-- **Simple to compute**: The Sobel operator is computationally simple and efficient.
-- **Noise reduction**: The Sobel operator acts as a low-pass filter due to its averaging effects, making it somewhat resistant to noise.
-- **Directional sensitivity**: It effectively detects edges in both horizontal and vertical directions.
+**Code Files:**
+- **sobel.v**: This Verilog code calculates the combined edge strength and truncates values above 255.
+- **Output Files**: 
+  - `output_image_combined.jpg`: This is the resulting image after applying the combined Sobel operator and thresholding.
+  - `output_image_combined.txt`: The raw binary data of the processed image.
 
-### 8. Limitations
+---
 
-- **Sensitive to noise**: Although the Sobel operator reduces some noise, it can still be sensitive to high-frequency noise.
-- **Edge localization**: The Sobel operator provides a rough estimate of edge locations, but it may not be as precise as more advanced methods like the Canny edge detector.
+### Dynamic Normalization
 
-### Conclusion
+In this process, we normalize the edge strength by dividing each pixel’s edge strength by the maximum edge strength in the image and then scaling it to fit within the range of 0 to 255. This ensures that the maximum edge strength is 255.
 
-The Sobel algorithm is a fundamental tool in image processing used to detect edges by computing the gradient of pixel intensities in horizontal and vertical directions. It is widely used due to its simplicity and effectiveness in edge detection tasks.
+1. **Edge Strength Normalization**: 
+
+$$
+Edge_{norm} = \frac{Edge_{strength}}{Max_{value}} \times 255
+$$
+
+2. **Output**: The final image is generated after normalizing the edge strengths.
+
+**Code Files:**
+- **sobel-dynamic.v**: This Verilog code calculates the edge strengths and applies dynamic normalization.
+- **Output Files**:
+  - `output_image_combined_dynamic.jpg`: The resulting image after applying dynamic normalization.
+  - `output_image_combined_dynamic.txt`: The raw binary data of the normalized image.
+
+
+---
+
+## Implementation
+
+This implementation is done using **Icarus Verilog 12.0** for the hardware description and **Python 3.12.1** for the image processing and visualization. 
+
+- The Verilog code performs the convolution of the Sobel masks with the input image and calculates the combined edge strength.
+- The Python code handles the image processing, including loading, applying the convolution, truncation, normalization, and visualizing the results.
+
+### Code Flow
+
+The following is a step-by-step breakdown of the process using different code files:
+
+1. **img2bin.py** – Converts the input image (in `.jpg` format) into a binary `.txt` format for further processing. The input image should already be in black-and-white (BW); if not, it must be converted beforehand.
+   - **Input**: `input_image.jpg`
+   - **Output**: `input_image.txt`
+
+2. **sobel-ver.v** – Implements the vertical Sobel operator. This Verilog file reads the binary image and applies the vertical Sobel mask.
+   - **Input**: `input_image.txt`
+   - **Output**: `output_image_ver.txt`
+
+3. **sobel-hor.v** – Implements the horizontal Sobel operator. This Verilog file reads the binary image and applies the horizontal Sobel mask.
+   - **Input**: `input_image.txt`
+   - **Output**: `output_image_hor.txt`
+
+4. **sobel.v** – Implements the combined Sobel operator, where the edge strength is calculated and truncated to 255.
+   - **Input**: `input_image.txt`
+   - **Output**: `output_image_combined.txt`
+
+5. **sobel-dynamic.v** – Implements the dynamic normalization of edge strength.
+   - **Input**: `input_image.txt`
+   - **Output**: `output_image_combined_dynamic.txt`
+
+6. **bin2img.py** – Converts the binary `.txt` files (output from the Verilog simulations) back into `.jpg` images.
+   - **bin2img.py** – Converts `output_image_combined.txt` to `output_image_combined.jpg`.
+   - **bin2img.py** – Converts `output_image_combined_dynamic.txt` to `output_image_combined_dynamic.jpg`.
+
+### Execution Steps
+
+The following steps are executed in sequence to complete the edge detection process:
+
+1. **Convert Image to Binary (img2bin.py)**
+
+   ```bash
+   python .\img2bin.py
+   ```
+
+   Converts the input image (`input_image.jpg`) to the binary file format (`input_image.txt`).
+
+2. **Vertical Sobel Operation (sobel-ver.v)**
+
+   ```bash
+   iverilog -o sobel-v .\sobel-ver.v
+   vvp .\sobel-v
+   ```
+
+   The Verilog code (`sobel-ver.v`) is compiled using `iverilog` to create the executable `sobel-v`. The `vvp` command runs the simulation, generating `output_image_ver.txt`.
+
+3. **Horizontal Sobel Operation (sobel-hor.v)**
+
+   ```bash
+   iverilog -o sobel-h .\sobel-hor.v
+   vvp .\sobel-h
+   ```
+
+   The Verilog code (`sobel-hor.v`) is compiled to create the executable `sobel-h`. The `vvp` command generates `output_image_hor.txt`.
+
+4. **Combined Sobel (sobel.v)**
+
+   ```bash
+   iverilog -o sobel .\sobel.v
+   vvp .\sobel
+   ```
+
+   This Verilog code applies the combined Sobel operator and generates `output_image_combined.txt`.
+
+5. **Dynamic Normalization (sobel-dynamic.v)**
+
+   ```bash
+   iverilog -o sobel-dynamic .\sobel-dynamic.v
+   vvp .\sobel-dynamic
+   ```
+
+   This Verilog code applies dynamic normalization and generates `output_image_combined_dynamic.txt`.
+
+6. **Convert Binary Outputs to Images**
+
+   ```bash
+   python .\bin2img.py
+   ```
+
+   Converts `output_image_combined.txt` and `output_image_combined_dynamic.txt` to `.jpg` images.
+
+---
+
+### Vertical Gradient Detection
+The following images show the input image and the output image after applying the vertical Sobel mask.
+
+![Input Image](input_image.jpg) ![Vertical Gradient Output](output_image_ver.jpg)
+
+### Horizontal Gradient Detection
+The following images show the input image and the output image after applying the horizontal Sobel mask.
+
+![Input Image](input_image.jpg) ![Horizontal Gradient Output](output_image_hor.jpg)
+
+### Combined Sobel Edge Detection (Fixed Threshold)
+The following image shows the input image and the output image after applying the combined Sobel operator with fixed threshold truncation.
+
+![Input Image](input_image.jpg) ![Combined Sobel Output](output_image_combined.jpg)
+
+### Dynamic Normalization of Edge Detection
+The following image shows the input image and the output image after applying dynamic normalization to the combined Sobel operator.
+
+![Input Image](input_image.jpg) ![Dynamic Normalized Output](output_image_combined_dynamic.jpg)
+
+---
+
+This implementation utilizes the following tools:
+
+**Icarus Verilog 12.0** for hardware description and simulation. This tool is used to compile the Verilog code for the Sobel operator and perform edge detection in hardware simulation.
+
+**Python 3.12.1** for image processing and visualization. Python handles the conversion between image formats, binary data handling, and applies the edge detection processing to visualize the results.
