@@ -202,6 +202,16 @@ The following image shows the input image and the output image after applying dy
 
 ![Input Image](input_image.jpg) ![Dynamic Normalized Output](output_image_combined_dynamic.jpg)
 
+<table>
+  <tr>
+    <td><b>Original Image</b></td>
+    <td><b>Dynamic Normalized Image</b></td>
+  </tr>
+  <tr>
+    <td><img src="lena_org.png" alt="Original Image" width="256"></td>
+    <td><img src="lena_dynamic.jpg" alt="Dynamic Normalized Image" width="256"></td>
+  </tr>
+</table>
 
 ### Binary Image with 127 Threshold
 
