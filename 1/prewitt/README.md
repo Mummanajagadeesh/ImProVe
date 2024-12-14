@@ -205,10 +205,14 @@ The following image shows the input image and the output image after applying dy
 <table>
   <tr>
     <td><b>Original Image</b></td>
+   <td><b>Prewitt Vertical</b></td>
+   <td><b>Prewitt Horizontal</b></td>
     <td><b>Dynamic Normalized Image</b></td>
   </tr>
   <tr>
     <td><img src="lena_org.png" alt="Original Image" width="256"></td>
+   <td><img src="lena_prewitt_ver.jpg" alt="Prewitt Vertical" width="256"></td>
+   <td><img src="lena_prewitt_hor.jpg" alt="Prewitt horizontal" width="256"></td>
     <td><img src="lena_dynamic.jpg" alt="Dynamic Normalized Image" width="256"></td>
   </tr>
 </table>
