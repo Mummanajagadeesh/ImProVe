@@ -202,6 +202,9 @@ The following image shows the input image and the output image after applying dy
 
 ![Input Image](input_image.jpg) ![Dynamic Normalized Output](output_image_combined_dynamic.jpg)
 
+![Input Image](lena_org.png) ![Dynamic Normalized Output](lean_dynamic.jpg)
+
+
 ### Binary Image with 127 Threshold
 
 ![Input Image](input_image.jpg) ![Binary_Image](binaryimage.jpg)
