@@ -248,13 +248,6 @@ The following table shows the comparison between the original and edge-detected 
 
 ---
 
-## Implementation
-
-This implementation uses Python 3.12.1 for image processing and combines it with the `combine.py` script to compute edge strength using Roberts Cross masks. 
-
-- **combine.py** reads the text file representations of images and applies convolution using the positive and negative masks for edge detection.
-- The resulting edge images are saved and visualized for analysis.
-
 ### Steps to Run
 
 1. **Convert Image to Binary**:
@@ -285,3 +278,15 @@ This implementation uses Python 3.12.1 for image processing and combines it with
 ## Conclusion
 
 Roberts Cross is a simple yet powerful edge detection technique that highlights diagonal edges in an image. By applying both positive and negative diagonal masks, you can detect edges in both directions and combine them for a complete edge map. This implementation offers an efficient way to extract edge features from images, useful in various computer vision tasks.
+
+
+
+---
+
+## Implementation
+
+This implementation is done using **Icarus Verilog 12.0** for the hardware description and **Python 3.12.1** for the image processing and visualization. 
+
+**Icarus Verilog 12.0** for hardware description and simulation. This tool is used to compile the Verilog code for the Prewitt operator and perform edge detection in hardware simulation.
+
+**Python 3.12.1** for image processing and visualization. Python handles the conversion between image formats, binary data handling, and applies the edge detection processing to visualize the results.
