@@ -1,8 +1,12 @@
-## Krisch Compass Edge Detection
+# Krisch Compass Edge Detection
+The Krisch Compass is an edge detection technique that also uses eight compass directions (North, South, East, West, Northwest, Northeast, Southwest, Southeast) to detect edges in an image. This method is similar to the Robinson Compass, but it employs different kernels, designed to highlight edges in a more refined manner by detecting changes in pixel intensity across various orientations. The directionality of the kernels allows the detection of edges in all the compass directions, making it particularly effective for capturing edges in images where the orientation may vary.
 
-The Krisch compass is an edge detection method that uses eight compass directions (N, S, E, W, NW, NE, SW, SE) to detect edges in an image. This method highlights directional changes in pixel intensity, which is key to identifying edges. Each direction is associated with a unique kernel, and the image is convolved with these kernels to detect edges in the corresponding direction.
+## What is the Krisch Compass Edge Detection?
+The Krisch Compass edge detection method is an extension of the concept of directional edge detection, which uses eight different kernels corresponding to compass directions to identify edges at multiple orientations. The key difference between the Krisch Compass and other edge detection methods (like the Sobel or Prewitt operators) is its use of eight directional kernels that highlight edges in a variety of orientations, giving it the ability to detect fine details and nuanced changes in the image's structure.
 
-In this implementation, we apply these eight kernels to a binary image with a threshold of 127. The resulting edge information is then saved in both text and image formats.
+This method is useful when you want to detect edges in images where orientation and finer directional differences matter. It is commonly used in applications such as texture segmentation, pattern recognition, and when working with images that contain edges at various angles or in non-rectangular orientations.
+
+By convolving each of these eight kernels with the image, the Krisch Compass can detect edge information from multiple directions. This allows for comprehensive edge detection, which can be particularly useful when analyzing images where edge directionality plays an important role in the final analysis.
 
 ### Kernels for the Krisch Compass
 
