@@ -9,129 +9,201 @@ This operator is useful for detecting fine details and edges in images where the
 The main goal of this method is to identify where there are significant transitions in pixel intensity across multiple orientations, which indicates the presence of edges. The method is especially valuable in applications where detecting edges in all possible directions is crucial, such as texture analysis, pattern recognition, and detailed image segmentation.
 
 
+## Mathematical Definition  
 
-## Kernels for the Robinson Compass
+### Kernels for the Robinson Compass  
 
-The Robinson compass uses the following 8 kernels for edge detection:
+The Robinson Compass operator uses eight directional kernels to detect edges in an image. These kernels are designed to approximate the gradient of an image in the following directions: **North (N)**, **South (S)**, **East (E)**, **West (W)**, **Northwest (NW)**, **Northeast (NE)**, **Southwest (SW)**, and **Southeast (SE)**.  
 
+The kernels are as follows:  
 
+**North (N):**  
 
-It seems like the issue with the LaTeX rendering is specific to how the non-North direction masks are written or how your Markdown renderer handles them. The North mask is rendering correctly, so the issue might be related to inconsistencies in the other matrix definitions.
+$$
+G_N =  
+\begin{bmatrix}  
+-1 & 0 & 1 \\  
+-2 & 0 & 2 \\  
+-1 & 0 & 1  
+\end{bmatrix}  
+$$  
 
-Here's a potential fix for the LaTeX sections:
+**South (S):**  
 
-1. Ensure uniform formatting for all matrices.
-2. Remove unnecessary blank spaces or incorrect characters.
-3. Make sure the Markdown renderer supports LaTeX and the correct syntax is being used.
+$$
+G_S =  
+\begin{bmatrix}  
+1 & 0 & -1 \\  
+2 & 0 & -2 \\  
+1 & 0 & -1  
+\end{bmatrix}  
+$$  
 
-Here’s the corrected version of the kernel definitions for all directions:
+**East (E):**  
 
+$$
+G_E =  
+\begin{bmatrix}  
+1 & 2 & 1 \\  
+0 & 0 & 0 \\  
+-1 & -2 & -1  
+\end{bmatrix}  
+$$  
 
-## Kernels for the Robinson Compass
+**West (W):**  
 
-The Robinson compass uses the following 8 kernels for edge detection:
+$$
+G_W =  
+\begin{bmatrix}  
+-1 & -2 & -1 \\  
+0 &  0 &  0 \\  
+1 &  2 &  1  
+\end{bmatrix}  
+$$  
 
-**N (North)**:
+**Northwest (NW):**  
 
-  $$
-  \begin{bmatrix}
-  -1 & 0 & 1 \\
-  -2 & 0 & 2 \\
-  -1 & 0 & 1
-  \end{bmatrix}
-  $$
+$$
+G_{NW} =  
+\begin{bmatrix}  
+0 & 1 & 2 \\  
+-1 & 0 & 1 \\  
+-2 & -1 & 0  
+\end{bmatrix}  
+$$  
 
-**S (South)**:
+**Northeast (NE):**  
 
-  $$
-  \begin{bmatrix}
-  1 & 0 & -1 \\
-  2 & 0 & -2 \\
-  1 & 0 & -1
-  \end{bmatrix}
-  $$
+$$
+G_{NE} =  
+\begin{bmatrix}  
+2 & 1 & 0 \\  
+1 & 0 & -1 \\  
+0 & -1 & -2  
+\end{bmatrix}  
+$$  
 
-**E (East)**:
+**Southwest (SW):**  
 
-  $$
-  \begin{bmatrix}
-  1 & 2 & 1 \\
-  0 & 0 & 0 \\
-  -1 & -2 & -1
-  \end{bmatrix}
-  $$
+$$
+G_{SW} =  
+\begin{bmatrix}  
+0 & -1 & -2 \\  
+1 &  0 & -1 \\  
+2 &  1 &  0  
+\end{bmatrix}  
+$$  
 
-**W (West)**:
+**Southeast (SE):**  
 
-  $$
-  \begin{bmatrix}
-  -1 & -2 & -1 \\
-  0 & 0 & 0 \\
-  1 & 2 & 1
-  \end{bmatrix}
-  $$
+$$
+G_{SE} =  
+\begin{bmatrix}  
+-2 & -1 &  0 \\  
+-1 &  0 &  1 \\  
+ 0 &  1 &  2  
+\end{bmatrix}  
+$$  
 
-**NW (Northwest)**:
+### Gradient Approximation  
 
-  $$
-  \begin{bmatrix}
-  0 & 1 & 2 \\
-  -1 & 0 & 1 \\
-  -2 & -1 & 0
-  \end{bmatrix}
-  $$
+For each kernel $$\( G_d \)$$ (where $$\( d \in \{N, S, E, W, NW, NE, SW, SE\} \)$$), the gradient at pixel $$\( (x, y) \)$$ is computed as:  
 
-**NE (Northeast)**:
+$$
+(G_d * I)(x, y) = \sum_{i=-1}^{1} \sum_{j=-1}^{1} G_d(i, j) \cdot I(x+i, y+j)  
+$$  
 
-  $$
-  \begin{bmatrix}
-  2 & 1 & 0 \\
-  1 & 0 & -1 \\
-  0 & -1 & -2
-  \end{bmatrix}
-  $$
+Here:  
+- $$\( I(x, y) \)$$ is the image intensity at pixel $$\( (x, y) \)$$.  
+- $$\( G_d(i, j) \)$$ is the value of the kernel at position $$\( (i, j) \)$$.  
 
-**SW (Southwest)**:
+### Combined Gradient Magnitude  
 
-  $$
-  \begin{bmatrix}
-  0 & -1 & -2 \\
-  1 & 0 & -1 \\
-  2 & 1 & 0
-  \end{bmatrix}
-  $$
+After convolving the image with all eight kernels, the magnitude of the edge gradient can be calculated as the maximum response across all directions:  
 
-**SE (Southeast)**:
+$$
+G(x, y) = \max \left( \left| G_N \right|, \left| G_S \right|, \left| G_E \right|, \left| G_W \right|, \left| G_{NW} \right|, \left| G_{NE} \right|, \left| G_{SW} \right|, \left| G_{SE} \right| \right)  
+$$  
 
-  $$
-  \begin{bmatrix}
-  -2 & -1 & 0 \\
-  -1 & 0 & 1 \\
-  0 & 1 & 2
-  \end{bmatrix}
-  $$
+Alternatively, the gradient magnitude can be computed as a weighted sum of all directional gradients:  
 
+$$
+G(x, y) = \sqrt{\sum_{d} \left( G_d(x, y) \right)^2}  
+$$  
 
-
-### Recommendations:
-
-1. Test your Markdown file on a renderer that fully supports LaTeX (like GitHub, Jupyter Notebook, or Pandoc).
-2. If you're embedding the Markdown in a larger HTML file or a specific Markdown parser, verify that MathJax or KaTeX is properly configured to render LaTeX equations.
-
-Let me know if you continue to face issues, and I can assist further!
-
-
-These eight kernels correspond to the directions: North, South, East, West, Northwest, Northeast, Southwest, and Southeast.
+where $$\( d \)$$ iterates over all directions.  
 
 ---
 
-## Process of Edge Detection
+## Process of Edge Detection  
 
-1. **Convolution**: The image is convolved with each of the eight kernels. This involves sliding each kernel over the image, multiplying the kernel values by the corresponding pixel values, and summing the results to compute a new value for each pixel.
+### Step 1: Convolution  
 
-2. **Thresholding**: After convolution, the resulting values are thresholded at 127 to produce a binary image. Any pixel value above 127 becomes 255 (white), and any pixel value below 127 becomes 0 (black), which highlights the edges detected in each direction.
+Each kernel is convolved with the image $$\( I(x, y) \)$$ to calculate the directional gradients. The convolution operation is expressed as:  
 
-3. **Edge Magnitude**: After applying all eight kernels, the magnitude of the edge in each direction is calculated. The final image may represent the edge magnitude in one direction, or the maximum gradient magnitude can be used to combine the information from all eight directions.
+$$
+(G_d * I)(x, y) = \sum_{i=-1}^{1} \sum_{j=-1}^{1} G_d(i, j) \cdot I(x+i, y+j)  
+$$  
+
+The result of this step is eight gradient images, one for each directional kernel.  
+
+### Step 2: Gradient Magnitude Calculation  
+
+The gradient magnitude at each pixel is calculated either by taking the maximum gradient magnitude across all directions:  
+
+$$
+G(x, y) = \max \left( \left| G_N \right|, \left| G_S \right|, \left| G_E \right|, \left| G_W \right|, \left| G_{NW} \right|, \left| G_{NE} \right|, \left| G_{SW} \right|, \left| G_{SE} \right| \right)  
+$$  
+
+Or by summing up the squared responses from all directions:  
+
+$$
+G(x, y) = \sqrt{\sum_{d} \left( G_d(x, y) \right)^2}  
+$$  
+
+### Step 3: Thresholding  
+
+A threshold $$\( T \)$$ is applied to the gradient magnitude to detect edges. This is expressed as:  
+
+$$
+E(x, y) =  
+\begin{cases}  
+1, & \text{if } G(x, y) \geq T \\  
+0, & \text{otherwise}  
+\end{cases}  
+$$  
+
+---
+
+## Implementation Details  
+
+### Fixed Threshold  
+
+In a fixed threshold approach, the edge magnitude is computed, and values above a predefined threshold are considered edges.  
+
+**Code Files:**  
+- **robinson.v**: Verilog code implementing convolution and fixed thresholding.  
+- **Output Files:**  
+  - `output_image_robinson.jpg`: Processed image with detected edges.  
+  - `output_image_robinson.txt`: Raw binary edge data.  
+
+### Dynamic Normalization  
+
+Dynamic normalization adjusts the edge magnitude relative to the maximum gradient value in the image, ensuring that the output is scaled to a range of 0–255.  
+
+**Normalization Formula:**  
+
+$$
+G_{\text{norm}}(x, y) = \frac{G(x, y)}{\max(G(x, y))} \times 255  
+$$  
+
+**Code Files:**  
+- **robinson-dynamic.v**: Verilog code implementing convolution and dynamic normalization.  
+- **Output Files:**  
+  - `output_image_robinson_dynamic.jpg`: Dynamically normalized edge-detected image.  
+  - `output_image_robinson_dynamic.txt`: Normalized binary data.  
+
+
 
 ---
 
