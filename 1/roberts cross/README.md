@@ -6,43 +6,164 @@ The Roberts Cross operator is a gradient-based edge detection method designed to
 
 This operator works best on grayscale images and is typically used for applications like shape detection, feature extraction, and image segmentation in computer vision and digital image processing. Due to its small kernel size, the Roberts Cross operator is particularly useful for detecting fine details or high-frequency components in images.
 
-## Mathematical Definition
+Here’s the enhanced version of the Roberts Cross operator documentation with more mathematical expressions:
 
-The Roberts Cross operator uses two 2x2 kernels to approximate the gradient of an image in diagonal directions.
+---
 
-For the positive diagonal mask \( G_x \):
+## Mathematical Definition  
 
-$$
-G_x = \begin{bmatrix}
- 1 & 0 \\
- 0 & -1
-\end{bmatrix}
-$$
+### Gradient Masks  
 
-For the negative diagonal mask \( G_y \):
+The **Roberts Cross operator** is a discrete differentiation operator that computes the gradient of an image by approximating it along diagonal directions. It uses two 2x2 convolution kernels, $$\( G_x \)$$ and $$\( G_y \)$$, to compute gradients in the positive and negative diagonal directions, respectively.  
+
+For the positive diagonal gradient $$\( G_x \)$$:  
 
 $$
-G_y = \begin{bmatrix}
- 0 & 1 \\
- -1 & 0
-\end{bmatrix}
-$$
+G_x = \begin{bmatrix}  
+1 & 0 \\  
+0 & -1  
+\end{bmatrix}  
+$$  
 
-Where:
-- The \( G_x \) mask detects edges along the positive diagonal (top-left to bottom-right).
-- The \( G_y \) mask detects edges along the negative diagonal (top-right to bottom-left).
-
-## Process of Edge Detection
-
-1. **Apply Convolution**: The Roberts Cross operator is applied by convolving the image with the positive and negative diagonal masks. For each pixel, the surrounding neighborhood is multiplied by the kernel, and the results are summed up to create two gradient images: one for the positive diagonal gradient and one for the negative diagonal gradient.
-
-2. **Magnitude Calculation**: The magnitude of the gradient at each pixel is calculated by combining the results of the positive and negative diagonal gradients:
+For the negative diagonal gradient $$\( G_y \)$$:  
 
 $$
-G = \sqrt{G_x^2 + G_y^2}
-$$
+G_y = \begin{bmatrix}  
+0 & 1 \\  
+-1 & 0  
+\end{bmatrix}  
+$$  
 
-3. **Thresholding**: To identify edges, the magnitude is thresholded. Pixels with gradients above a certain threshold are considered part of the edge, while others are discarded.
+### Discrete Gradient Approximation  
+
+Let $$\( I(x, y) \)$$ denote the intensity of the pixel at coordinates $$\( (x, y) \)$$. The approximations to the gradients along the positive and negative diagonals are computed as:  
+
+For $$\( G_x \)$$:  
+
+$$
+\partial_{x'} I(x, y) \approx (I(x, y) \cdot G_x[1,1]) + (I(x+1, y+1) \cdot G_x[2,2]) - (I(x, y+1) \cdot G_x[2,1]) - (I(x+1, y) \cdot G_x[1,2])  
+$$  
+
+For $$\( G_y \)$$:  
+
+$$
+\partial_{y'} I(x, y) \approx (I(x+1, y) \cdot G_y[2,1]) + (I(x, y+1) \cdot G_y[1,2]) - (I(x, y) \cdot G_y[1,1]) - (I(x+1, y+1) \cdot G_y[2,2])  
+$$  
+
+In compact notation, the convolutions can be expressed as:  
+
+$$
+(G_x * I)(x, y) = I(x, y) - I(x+1, y+1)  
+$$  
+
+$$
+(G_y * I)(x, y) = I(x+1, y) - I(x, y+1)  
+$$  
+
+### Gradient Magnitude  
+
+The gradient magnitude is computed by combining the contributions from both $$\( G_x \)$$ and $$\( G_y \)$$:  
+
+$$
+G(x, y) = \sqrt{\left(G_x(x, y)\right)^2 + \left(G_y(x, y)\right)^2}  
+$$  
+
+For computational simplicity, the magnitude can also be approximated as:  
+
+$$
+G(x, y) \approx |G_x(x, y)| + |G_y(x, y)|  
+$$  
+
+### Gradient Direction  
+
+The gradient direction $$\( \theta(x, y) \)$$ is given by:  
+
+$$
+\theta(x, y) = \tan^{-1}\left(\frac{G_y(x, y)}{G_x(x, y)}\right)  
+$$  
+
+---
+
+## Process of Edge Detection  
+
+### 1. Convolution  
+
+The Roberts Cross operator applies convolution to the image $$\( I(x, y) \)$$ using the two kernels $$\( G_x \)$$ and $$\( G_y \)$$. For each pixel $$\( (x, y) \)$$, the gradients are computed using the following:  
+
+Positive diagonal:  
+
+$$
+\partial_{x'} I(x, y) = (I(x, y) - I(x+1, y+1))  
+$$  
+
+Negative diagonal:  
+
+$$
+\partial_{y'} I(x, y) = (I(x+1, y) - I(x, y+1))  
+$$  
+
+The convolutional result produces two gradient images corresponding to $$\( G_x \)$$ and $$\( G_y \)$$.  
+
+---
+
+### 2. Gradient Magnitude and Direction  
+
+Using the computed gradients, the magnitude $$\( G(x, y) \)$$ is determined as:  
+
+$$
+G(x, y) = \sqrt{\left(G_x(x, y)\right)^2 + \left(G_y(x, y)\right)^2}  
+$$  
+
+Alternatively, the approximate magnitude is given by:  
+
+$$
+G(x, y) \approx |G_x(x, y)| + |G_y(x, y)|  
+$$  
+
+The gradient direction $$\( \theta(x, y) \)$$ is computed as:  
+
+$$
+\theta(x, y) = \tan^{-1}\left(\frac{G_y(x, y)}{G_x(x, y)}\right)  
+$$  
+
+---
+
+### 3. Thresholding  
+
+To extract edges, the gradient magnitude is thresholded to remove noise and weak edges. The thresholding operation is defined as:  
+
+$$
+E(x, y) =  
+\begin{cases}  
+1, & \text{if } G(x, y) \geq T \\  
+0, & \text{otherwise}  
+\end{cases}  
+$$  
+
+---
+
+## Combined Roberts Cross Operator (Fixed Threshold)  
+
+In the fixed threshold approach, the gradient magnitude is computed and capped at a maximum value of 255.  
+
+1. **Magnitude Calculation**:  
+
+$$
+Edge_{strength} = \sqrt{G_x^2 + G_y^2}  
+$$  
+
+2. **Truncation**: Values exceeding 255 are set to 255.  
+
+3. **Output**: A processed image based on truncated edge strengths.  
+
+**Code Files:**  
+- **roberts.v**: Verilog code for fixed thresholding.
+- **combine.py**: Calculates edge strength for each pixel taking those 2 resultant text files after positive and negative operations. 
+- **Output Files**:  
+  - `output_image_combined.jpg`: The processed image.  
+  - `output_image_combined.txt`: Binary data of the result.  
+
+
 
 ---
 
