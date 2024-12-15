@@ -1,7 +1,10 @@
-
 # Roberts Cross Edge Detection
+The Roberts Cross operator is an edge detection technique used to detect areas of rapid intensity change in an image. It is one of the earliest edge detection methods and operates by calculating the gradient in diagonal directions. This operator highlights edges effectively by using simple 2x2 convolution kernels, making it computationally efficient and suitable for basic edge detection tasks.
 
-Roberts Cross is an edge detection operator used to detect edges in an image. It is a simple, efficient operator that uses two 2x2 kernels (masks) to calculate the gradient in the diagonal direction. This operator is often used in image processing to detect sharp changes in pixel intensity and identify edges.
+## What is the Roberts Cross Operator?
+The Roberts Cross operator is a gradient-based edge detection method designed to identify edges by computing the approximate gradient magnitude at each pixel. Unlike other operators like Sobel or Prewitt, which detect gradients in horizontal and vertical directions, the Roberts Cross operator focuses on diagonal gradients. Its simplicity makes it well-suited for applications that require minimal computational resources or where real-time performance is essential.
+
+This operator works best on grayscale images and is typically used for applications like shape detection, feature extraction, and image segmentation in computer vision and digital image processing. Due to its small kernel size, the Roberts Cross operator is particularly useful for detecting fine details or high-frequency components in images.
 
 ## Mathematical Definition
 
