@@ -98,3 +98,19 @@ The following results show the visual effects of rotating the input image by var
 | Original Image           | 30° Rotated Image          | 45° Rotated Image          | 60° Rotated Image          | 90° Rotated Image          |  
 |---------------------------|----------------------------|----------------------------|----------------------------|----------------------------|  
 | ![Input Image](input_image.jpg) | ![30° Rotated](30deg.jpg) | ![45° Rotated](45deg.jpg) | ![60° Rotated](60deg.jpg) | ![90° Rotated](90deg.jpg) |  
+
+---
+
+For coloured images:
+
+- **`img2rgb.py`**: Converts the input image (`lena_org.png`) into three separate text files representing the pixel values for the red, green, and blue channels.
+- **`rotate.v`**: Rotates all three channel data (red, green, and blue) by the same angle and outputs the transformed pixel values into corresponding text files.
+- **`rgb2img.py`**: Combines the rotated red, green, and blue channel data into a single image (`lena_rot.jpg`).
+
+
+
+| Original Image           | 30° Rotated Image          |  
+|---------------------------|----------------------------|  
+| ![Original Image](lena_org.png) | ![30° Rotated](lena_rot.jpg) |  
+
+
