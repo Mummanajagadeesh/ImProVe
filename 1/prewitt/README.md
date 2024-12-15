@@ -51,8 +51,6 @@ $$
 
 ---
 
-## New Steps Added
-
 ### Combined Prewitt Operator (Fixed Threshold)
 
 In this approach, we combine the magnitudes from both the vertical and horizontal gradients to determine the edge strength at each pixel. The combined edge strength is then truncated to a maximum value of 255 (fixed-point threshold). This ensures that any values above 255 are capped.
