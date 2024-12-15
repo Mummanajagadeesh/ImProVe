@@ -2,6 +2,13 @@
 
 The Prewitt operator is a discrete differentiation operator used in edge detection. It is based on convolving an image with a pair of kernels (masks) to compute the gradient in the horizontal and vertical directions. These gradients provide information about the rate of change in intensity at each pixel, which helps in detecting edges.
 
+## What is the Prewitt Operator?
+
+The Prewitt operator is a gradient-based technique that calculates the rate of intensity change in an image. Edges represent areas with significant intensity changes, and by finding the gradient at each pixel, the operator highlights these edges. The primary purpose is to simplify the image data for applications like object recognition, feature extraction, and image segmentation.
+
+Unlike more complex edge detectors, the Prewitt operator uses fixed convolution masks, making it computationally efficient and easy to implement. It is particularly effective for applications requiring a fast and straightforward edge-detection method.
+
+
 ## Mathematical Definition
 
 The Prewitt operator uses two kernels to approximate the gradient of an image in the horizontal and vertical directions. The horizontal and vertical masks are defined as follows:
