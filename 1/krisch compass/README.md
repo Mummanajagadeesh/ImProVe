@@ -8,99 +8,199 @@ This method is useful when you want to detect edges in images where orientation 
 
 By convolving each of these eight kernels with the image, the Krisch Compass can detect edge information from multiple directions. This allows for comprehensive edge detection, which can be particularly useful when analyzing images where edge directionality plays an important role in the final analysis.
 
-### Kernels for the Krisch Compass
+## Mathematical Definition
 
-The Krisch compass uses the following 8 kernels for edge detection:
+### Kernels for the Kirsch Compass  
 
-**N (North)**:
+The Kirsch Compass operator uses eight directional kernels to detect edges in an image. These kernels are specifically designed to measure intensity changes in the directions: **North (N)**, **South (S)**, **East (E)**, **West (W)**, **Northwest (NW)**, **Northeast (NE)**, **Southwest (SW)**, and **Southeast (SE)**.  
 
-$$
-\begin{bmatrix}
--3 & -3 & 5 \\
--3 & 0 & 5 \\
--3 & -3 & 5
-\end{bmatrix}
-$$
+The kernels are as follows:  
 
-**S (South)**:
+**North (N):**  
 
 $$
-\begin{bmatrix}
--3 & -3 & -3 \\
--3 & 0 & 5 \\
--3 & 5 & 5
-\end{bmatrix}
-$$
+G_N =  
+\begin{bmatrix}  
+-3 & -3 & 5 \\  
+-3 & 0 & 5 \\  
+-3 & -3 & 5  
+\end{bmatrix}  
+$$  
 
-**E (East)**:
-
-$$
-\begin{bmatrix}
--3 & -3 & -3 \\
--3 & 0 & 5 \\
--3 & 5 & 5
-\end{bmatrix}
-$$
-
-**W (West)**:
+**South (S):**  
 
 $$
-\begin{bmatrix}
--3 & -3 & -3 \\
--3 & 0 & 5 \\
--3 & 5 & 5
-\end{bmatrix}
-$$
+G_S =  
+\begin{bmatrix}  
+-3 & -3 & -3 \\  
+-3 & 0 & -3 \\  
+5 & 5 & 5  
+\end{bmatrix}  
+$$  
 
-**NW (Northwest)**:
-
-$$
-\begin{bmatrix}
--3 & -3 & 5 \\
--3 & 0 & 5 \\
--3 & -3 & 5
-\end{bmatrix}
-$$
-
-**NE (Northeast)**:
+**East (E):**  
 
 $$
-\begin{bmatrix}
--3 & -3 & 5 \\
--3 & 0 & 5 \\
--3 & -3 & 5
-\end{bmatrix}
-$$
+G_E =  
+\begin{bmatrix}  
+-3 & -3 & -3 \\  
+-3 & 0 & 5 \\  
+-3 & 5 & 5  
+\end{bmatrix}  
+$$  
 
-**SW (Southwest)**:
-
-$$
-\begin{bmatrix}
--3 & -3 & 5 \\
--3 & 0 & 5 \\
--3 & -3 & 5
-\end{bmatrix}
-$$
-
-**SE (Southeast)**:
+**West (W):**  
 
 $$
-\begin{bmatrix}
--3 & -3 & -3 \\
--3 & 0 & 5 \\
--3 & 5 & 5
-\end{bmatrix}
+G_W =  
+\begin{bmatrix}  
+5 & 5 & -3 \\  
+5 & 0 & -3 \\  
+5 & -3 & -3  
+\end{bmatrix}  
+$$  
+
+**Northwest (NW):**  
+
 $$
+G_{NW} =  
+\begin{bmatrix}  
+5 & 5 & 5 \\  
+-3 & 0 & -3 \\  
+-3 & -3 & -3  
+\end{bmatrix}  
+$$  
+
+**Northeast (NE):**  
+
+$$
+G_{NE} =  
+\begin{bmatrix}  
+-3 & 5 & 5 \\  
+-3 & 0 & 5 \\  
+-3 & -3 & -3  
+\end{bmatrix}  
+$$  
+
+**Southwest (SW):**  
+
+$$
+G_{SW} =  
+\begin{bmatrix}  
+-3 & -3 & -3 \\  
+-3 & 0 & -3 \\  
+5 & 5 & 5  
+\end{bmatrix}  
+$$  
+
+**Southeast (SE):**  
+
+$$
+G_{SE} =  
+\begin{bmatrix}  
+-3 & -3 & -3 \\  
+5 & 0 & -3 \\  
+5 & 5 & 5  
+\end{bmatrix}  
+$$  
+
+### Gradient Approximation  
+
+For each kernel $$\( G_d \)$$ (where $$\( d \in \{N, S, E, W, NW, NE, SW, SE\} \)$$), the gradient at pixel $$\( (x, y) \)$$ is computed as:  
+
+$$
+(G_d * I)(x, y) = \sum_{i=-1}^{1} \sum_{j=-1}^{1} G_d(i, j) \cdot I(x+i, y+j)  
+$$  
+
+Here:  
+- $$\( I(x, y) \)$$ is the image intensity at pixel $$\( (x, y) \)$$.  
+- $$\( G_d(i, j) \)$$ is the value of the kernel at position $$\( (i, j) \)$$.  
+
+### Combined Gradient Magnitude  
+
+After convolving the image with all eight kernels, the magnitude of the edge gradient is computed as the maximum response across all directions:  
+
+$$
+G(x, y) = \max \left( \left| G_N \right|, \left| G_S \right|, \left| G_E \right|, \left| G_W \right|, \left| G_{NW} \right|, \left| G_{NE} \right|, \left| G_{SW} \right|, \left| G_{SE} \right| \right)  
+$$  
+
+Alternatively, the gradient magnitude can be calculated using the Euclidean norm:  
+
+$$
+G(x, y) = \sqrt{\sum_{d} \left( G_d(x, y) \right)^2}  
+$$  
+
+where $$\( d \)$$ iterates over all directions.  
 
 ---
 
-### Process of Edge Detection
+## Process of Edge Detection  
 
-1. **Convolution**: The image is convolved with each of the eight kernels. This involves sliding each kernel over the image, multiplying the kernel values by the corresponding pixel values, and summing the results to compute a new value for each pixel.
+### Step 1: Convolution  
 
-2. **Thresholding**: After convolution, the resulting values are thresholded at 127 to produce a binary image. Any pixel value above 127 becomes 255 (white), and any pixel value below 127 becomes 0 (black), which highlights the edges detected in each direction.
+Each kernel $$\( G_d \)$$ is convolved with the input image $$\( I(x, y) \)$$. The convolution operation is defined as:  
 
-3. **Edge Magnitude**: After applying all eight kernels, the magnitude of the edge in each direction is calculated. The final image may represent the edge magnitude in one direction, or the maximum gradient magnitude can be used to combine the information from all eight directions.
+$$
+(G_d * I)(x, y) = \sum_{i=-1}^{1} \sum_{j=-1}^{1} G_d(i, j) \cdot I(x+i, y+j)  
+$$  
+
+This results in eight gradient images, each corresponding to a specific directional kernel.  
+
+### Step 2: Gradient Magnitude Calculation  
+
+The gradient magnitude is calculated either as the maximum response among all directional gradients:  
+
+$$
+G(x, y) = \max \left( \left| G_N \right|, \left| G_S \right|, \left| G_E \right|, \left| G_W \right|, \left| G_{NW} \right|, \left| G_{NE} \right|, \left| G_{SW} \right|, \left| G_{SE} \right| \right)  
+$$  
+
+Or as the sum of the squared responses:  
+
+$$
+G(x, y) = \sqrt{\sum_{d} \left( G_d(x, y) \right)^2}  
+$$  
+
+### Step 3: Thresholding  
+
+Thresholding is applied to the gradient magnitude to create a binary edge map. A pixel is considered an edge if its gradient magnitude exceeds a certain threshold $$\( T \)$$:  
+
+$$
+E(x, y) =  
+\begin{cases}  
+1, & \text{if } G(x, y) \geq T \\  
+0, & \text{otherwise}  
+\end{cases}  
+$$  
+
+---
+
+## Implementation Details  
+
+### Fixed Threshold  
+
+In this approach, the edge magnitude is thresholded with a fixed value to detect significant edges.  
+
+**Code Files:**  
+- **kirsch.v**: Verilog code implementing convolution and fixed thresholding.  
+- **Output Files:**  
+  - `output_image_kirsch.jpg`: Image showing edges detected using Kirsch Compass.  
+  - `output_image_kirsch.txt`: Binary output data of detected edges.  
+
+### Dynamic Normalization  
+
+Dynamic normalization adjusts the edge magnitude by scaling it to a range of 0–255 based on the maximum gradient magnitude in the image.  
+
+**Normalization Formula:**  
+
+$$
+G_{\text{norm}}(x, y) = \frac{G(x, y)}{\max(G(x, y))} \times 255  
+$$  
+
+**Code Files:**  
+- **kirsch-dynamic.v**: Verilog code implementing convolution and dynamic normalization.  
+- **Output Files:**  
+  - `output_image_kirsch_dynamic.jpg`: Dynamically normalized edge-detected image.  
+  - `output_image_kirsch_dynamic.txt`: Normalized binary data of edges.  
 
 ---
 
