@@ -1,8 +1,14 @@
 # Robinson Compass Edge Detection
+The Robinson Compass is an edge detection technique that uses eight compass directions (North, South, East, West, Northwest, Northeast, Southwest, Southeast) to detect edges in an image. This method identifies directional changes in pixel intensity, which are indicative of edges. By convolving the image with kernels corresponding to these eight directions, the operator effectively highlights edges that align with any of these directions.
 
-The Robinson compass is an edge detection method that uses eight compass directions (N, S, E, W, NW, NE, SW, SE) to detect edges in an image. This method highlights directional changes in pixel intensity, which is key to identifying edges. Each direction is associated with a unique kernel, and the image is convolved with these kernels to detect edges in the corresponding direction.
+## What is the Robinson Compass Edge Detection?
+The Robinson Compass edge detection method is a directionally sensitive approach that uses multiple kernels to detect edges along different orientations. Each of the eight compass directions corresponds to a distinct kernel that is convolved with the image. The result is a set of edge responses in each of these directions, allowing for precise detection of edges regardless of their orientation.
 
-In this implementation, we apply these eight kernels to a binary image with a threshold of 127. The resulting edge information is then saved in both text and image formats.
+This operator is useful for detecting fine details and edges in images where the directionality of the edges is important. Unlike operators like Sobel or Prewitt, which detect edges based on gradients in horizontal and vertical directions, the Robinson Compass considers a broader range of orientations, providing more comprehensive edge detection.
+
+The main goal of this method is to identify where there are significant transitions in pixel intensity across multiple orientations, which indicates the presence of edges. The method is especially valuable in applications where detecting edges in all possible directions is crucial, such as texture analysis, pattern recognition, and detailed image segmentation.
+
+
 
 ## Kernels for the Robinson Compass
 
