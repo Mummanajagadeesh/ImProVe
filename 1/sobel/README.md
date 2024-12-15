@@ -6,99 +6,169 @@ The Sobel operator is a gradient-based edge detection technique that highlights 
 
 What makes the Sobel operator unique is its use of weighted convolution masks, which prioritize the central pixels during gradient calculation. This results in better edge detection performance, especially in noisy environments, compared to simpler operators like Prewitt. The Sobel operator is particularly useful in applications where accuracy and noise resistance are important.
 
-## Mathematical Definition
 
-The Sobel operator uses two kernels to approximate the gradient of an image in the horizontal and vertical directions. The horizontal and vertical masks are defined as follows:
 
-For the vertical mask, \( G_y \):
+## Mathematical Definition  
 
-$$
-G_y = \begin{bmatrix}
--1 & 0 & 1 \\
--2 & 0 & 2 \\
--1 & 0 & 1
-\end{bmatrix}
-$$
+### Gradient Masks  
 
-For the horizontal mask, \( G_x \):
+The **Sobel operator** is mathematically defined as a discrete approximation to the partial derivatives of an image $$\( I(x, y) \)$$. It employs two convolution kernels, \( G_x \)$$ for the horizontal gradient and $$\( G_y \)$$ for the vertical gradient. These are represented as:  
+
+For the vertical gradient $$\( G_y \)$$:  
 
 $$
-G_x = \begin{bmatrix}
--1 & -2 & -1 \\
- 0 &  0 &  0 \\
- 1 &  2 &  1
-\end{bmatrix}
-$$
+G_y = \begin{bmatrix}  
+-1 & 0 & 1 \\  
+-2 & 0 & 2 \\  
+-1 & 0 & 1  
+\end{bmatrix}  
+$$  
 
-Where:
-- The vertical mask detects edges that are aligned vertically (up-down).
-- The horizontal mask detects edges that are aligned horizontally (left-right).
-
-## Process of Edge Detection
-
-1. **Apply Convolution**: The Sobel operator is applied to the image by convolving the image with the masks. For each pixel in the image, the neighborhood around it is multiplied by the kernel, and the results are summed up. This results in two images: one for the vertical gradient (\( G_y \)) and one for the horizontal gradient (\( G_x \)).
-
-2. **Magnitude Calculation**: The magnitude of the gradient at each pixel is computed by combining the results of the horizontal and vertical gradients:
+For the horizontal gradient $$\( G_x \)$$:  
 
 $$
-G = \sqrt{G_x^2 + G_y^2}
-$$
+G_x = \begin{bmatrix}  
+-1 & -2 & -1 \\  
+0 &  0 &  0 \\  
+1 &  2 &  1  
+\end{bmatrix}  
+$$  
 
-3. **Thresholding**: To identify the edges, the magnitude is thresholded. Pixels with gradients above a certain threshold are considered part of the edge, while others are discarded.
+### Discrete Gradient Approximation  
+
+Let $$\( I(x, y) \)$$ represent the image intensity at pixel coordinates $$\( (x, y) \)$$. The discrete approximations to the partial derivatives are computed as:  
+
+$$
+\partial_x I(x, y) \approx \sum_{i=-1}^{1} \sum_{j=-1}^{1} G_x(i, j) \cdot I(x+i, y+j)  
+$$  
+
+$$
+\partial_y I(x, y) \approx \sum_{i=-1}^{1} \sum_{j=-1}^{1} G_y(i, j) \cdot I(x+i, y+j)  
+$$  
+
+Using a general summation over the image domain:  
+
+$$
+(G_x * I)(x, y) = \sum_{m=1}^{M} \sum_{n=1}^{N} G_x(m, n) \cdot I(x+m-2, y+n-2)  
+$$  
+
+$$
+(G_y * I)(x, y) = \sum_{m=1}^{M} \sum_{n=1}^{N} G_y(m, n) \cdot I(x+m-2, y+n-2)  
+$$  
+
+where $$\( M \)$$ and $$\( N \)$$ are the dimensions of the kernels.  
+
+### Gradient Magnitude  
+
+The magnitude of the gradient at a pixel is computed as:  
+
+$$
+G(x, y) = \sqrt{\left(\partial_x I(x, y)\right)^2 + \left(\partial_y I(x, y)\right)^2}  
+$$  
+
+For computational efficiency, the gradient magnitude is often approximated as:  
+
+$$
+G(x, y) \approx |\partial_x I(x, y)| + |\partial_y I(x, y)|  
+$$  
+
+### Gradient Direction  
+
+The direction of the gradient is given by:  
+
+$$
+\theta(x, y) = \tan^{-1}\left(\frac{\partial_y I(x, y)}{\partial_x I(x, y)}\right)  
+$$  
 
 ---
 
-## New Steps Added
+## Process of Edge Detection  
 
-### Combined Sobel Operator (Fixed Threshold)
+### Convolution  
 
-In this approach, we combine the magnitudes from both the vertical and horizontal gradients to determine the edge strength at each pixel. The combined edge strength is then truncated to a maximum value of 255 (fixed-point threshold). This ensures that any values above 255 are capped.
+The edge detection process begins by convolving the image $$\( I(x, y) \)$$ with the Sobel kernels $$\( G_x \)$$ and $$\( G_y \)$$. Mathematically, this operation for each pixel $$\( (x, y) \)$$ is expressed as:  
 
-1. **Magnitude Calculation**: The combined magnitude is calculated as:
+Horizontal gradient:  
 
 $$
-Edge_{strength} = \sqrt{G_x^2 + G_y^2}
+(G_x * I)(x, y) = \sum_{i=-1}^{1} \sum_{j=-1}^{1} G_x(i, j) \cdot I(x+i, y+j)  
+$$  
+
+Vertical gradient:  
+
 $$
+(G_y * I)(x, y) = \sum_{i=-1}^{1} \sum_{j=-1}^{1} G_y(i, j) \cdot I(x+i, y+j)  
+$$  
 
-2. **Truncation**: If the calculated edge strength exceeds 255, it is set to 255.
+### Gradient Magnitude and Direction  
 
-3. **Output**: The final image is generated using the truncated edge strengths.
+The gradients computed using the convolution operation are combined to form the gradient magnitude and direction. The magnitude at each pixel is:  
 
-**Code Files:**
-- **sobel.v**: This Verilog code calculates the combined edge strength and truncates values above 255.
-- **Output Files**: 
-  - `output_image_combined.jpg`: This is the resulting image after applying the combined Sobel operator and thresholding.
-  - `output_image_combined.txt`: The raw binary data of the processed image.
+$$
+G(x, y) = \sqrt{\left(\sum_{i=-1}^{1} \sum_{j=-1}^{1} G_x(i, j) \cdot I(x+i, y+j)\right)^2 + \left(\sum_{i=-1}^{1} \sum_{j=-1}^{1} G_y(i, j) \cdot I(x+i, y+j)\right)^2}  
+$$  
+
+The direction is similarly computed as:  
+
+$$
+\theta(x, y) = \tan^{-1}\left(\frac{\sum_{i=-1}^{1} \sum_{j=-1}^{1} G_y(i, j) \cdot I(x+i, y+j)}{\sum_{i=-1}^{1} \sum_{j=-1}^{1} G_x(i, j) \cdot I(x+i, y+j)}\right)  
+$$  
+
+### Thresholding  
+
+Edges are identified by applying a threshold $$\( T \)$$ to the gradient magnitude. This is expressed as:  
+
+$$
+E(x, y) =  
+\begin{cases}  
+1, & \text{if } G(x, y) \geq T \\  
+0, & \text{otherwise}  
+\end{cases}  
+$$  
+
+### Combined Sobel Operator (Fixed Threshold)  
+
+In this approach, the edge strength is computed by combining magnitudes from both gradients and truncating to a fixed maximum.  
+
+1. **Magnitude Calculation**:  
+
+$$
+Edge_{strength} = \sqrt{G_x^2 + G_y^2}  
+$$  
+
+2. **Truncation**: Values exceeding 255 are capped.  
+
+3. **Output**: A processed image using truncated edge strengths.  
+
+**Code Files:**  
+- **sobel.v**: Verilog code for fixed thresholding.  
+- **Output Files**:  
+  - `output_image_combined.jpg`: Processed image.  
+  - `output_image_combined.txt`: Raw binary data.  
 
 ---
 
-### Dynamic Normalization
+### Dynamic Normalization  
 
-In this process, we normalize the edge strength by dividing each pixel’s edge strength by the maximum edge strength in the image and then scaling it to fit within the range of 0 to 255. This ensures that the maximum edge strength is 255.
+In this approach, edge strength is normalized relative to the maximum value, ensuring a full range of 0–255.  
 
-1. **Edge Strength Normalization**: 
+1. **Normalization**:  
 
 $$
-Edge_{norm} = \frac{Edge_{strength}}{Max_{value}} \times 255
-$$
+Edge_{norm} = \frac{Edge_{strength}}{Max_{value}} \times 255  
+$$  
 
-2. **Output**: The final image is generated after normalizing the edge strengths.
+2. **Output**: Final image with normalized edge strengths.  
 
-**Code Files:**
-- **sobel-dynamic.v**: This Verilog code calculates the edge strengths and applies dynamic normalization.
-- **Output Files**:
-  - `output_image_combined_dynamic.jpg`: The resulting image after applying dynamic normalization.
-  - `output_image_combined_dynamic.txt`: The raw binary data of the normalized image.
+**Code Files:**  
+- **sobel-dynamic.v**: Verilog code for dynamic normalization.  
+- **Output Files**:  
+  - `output_image_combined_dynamic.jpg`: Normalized image.  
+  - `output_image_combined_dynamic.txt`: Raw binary data.  
+
 
 
 ---
-
-## Implementation
-
-This implementation is done using **Icarus Verilog 12.0** for the hardware description and **Python 3.12.1** for the image processing and visualization. 
-
-- The Verilog code performs the convolution of the Sobel masks with the input image and calculates the combined edge strength.
-- The Python code handles the image processing, including loading, applying the convolution, truncation, normalization, and visualizing the results.
 
 ### Code Flow
 
@@ -220,6 +290,7 @@ The following image shows the input image and the output image after applying dy
     <td><img src="lena_dynamic.jpg" alt="Dynamic Normalized Image" width="256"></td>
   </tr>
 </table>
+
 ### Binary Image with 127 Threshold
 
 ![Input Image](input_image.jpg) ![Binary_Image](binaryimage.jpg)
@@ -227,8 +298,10 @@ The following image shows the input image and the output image after applying dy
 
 ---
 
-This implementation utilizes the following tools:
+## Implementation
 
-**Icarus Verilog 12.0** for hardware description and simulation. This tool is used to compile the Verilog code for the Sobel operator and perform edge detection in hardware simulation.
+This implementation is done using **Icarus Verilog 12.0** for the hardware description and **Python 3.12.1** for the image processing and visualization. 
+
+**Icarus Verilog 12.0** for hardware description and simulation. This tool is used to compile the Verilog code for the Prewitt operator and perform edge detection in hardware simulation.
 
 **Python 3.12.1** for image processing and visualization. Python handles the conversion between image formats, binary data handling, and applies the edge detection processing to visualize the results.
