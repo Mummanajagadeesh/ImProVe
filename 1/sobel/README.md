@@ -1,6 +1,10 @@
 # Sobel Operator in Edge Detection
+The Sobel operator is a discrete differentiation operator used in edge detection. Like the Prewitt operator, it computes the gradient in the horizontal and vertical directions by convolving an image with a pair of kernels. The Sobel operator, however, includes an additional weighting factor that gives more emphasis to the central pixels, resulting in smoother edges and better noise suppression.
 
-The Sobel operator is a discrete differentiation operator used in edge detection. It works by convolving an image with a pair of kernels (masks) to compute the gradient in the horizontal and vertical directions. These gradients provide information about the rate of change in intensity at each pixel, which helps in detecting edges.
+## What is the Sobel Operator?
+The Sobel operator is a gradient-based edge detection technique that highlights regions with significant intensity changes in an image. By calculating the gradient at each pixel, the Sobel operator identifies edges and boundaries that are crucial for understanding the structure of objects in an image. It is widely used in fields like computer vision, robotics, and image processing for tasks such as object detection, feature extraction, and segmentation.
+
+What makes the Sobel operator unique is its use of weighted convolution masks, which prioritize the central pixels during gradient calculation. This results in better edge detection performance, especially in noisy environments, compared to simpler operators like Prewitt. The Sobel operator is particularly useful in applications where accuracy and noise resistance are important.
 
 ## Mathematical Definition
 
