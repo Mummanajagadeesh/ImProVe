@@ -9,45 +9,140 @@ The Prewitt operator is a gradient-based technique that calculates the rate of i
 Unlike more complex edge detectors, the Prewitt operator uses fixed convolution masks, making it computationally efficient and easy to implement. It is particularly effective for applications requiring a fast and straightforward edge-detection method.
 
 
-## Mathematical Definition
 
-The Prewitt operator uses two kernels to approximate the gradient of an image in the horizontal and vertical directions. The horizontal and vertical masks are defined as follows:
+## Mathematical Definition  
 
-For the vertical mask, \( G_y \):
+### Gradient Masks  
 
-$$
-G_y = \begin{bmatrix}
--1 & 0 & 1 \\
--1 & 0 & 1 \\
--1 & 0 & 1
-\end{bmatrix}
-$$
+The **Prewitt operator** is mathematically defined as a discrete approximation to the partial derivatives of an image $$\( I(x, y) \)$$. It employs two convolution kernels, $$\( G_x \)$$ for the horizontal gradient and $$\( G_y \)$$ for the vertical gradient. These are represented as:  
 
-For the horizontal mask, \( G_x \):
+For the vertical gradient $$\( G_y \)$$:  
 
 $$
-G_x = \begin{bmatrix}
--1 & -1 & -1 \\
- 0 &  0 &  0 \\
- 1 &  1 &  1
-\end{bmatrix}
-$$
+G_y = \begin{bmatrix}  
+-1 & 0 & 1 \\  
+-1 & 0 & 1 \\  
+-1 & 0 & 1  
+\end{bmatrix}  
+$$  
 
-Where:
-- The vertical mask detects edges that are aligned vertically (up-down).
-- The horizontal mask detects edges that are aligned horizontally (left-right).
-
-## Process of Edge Detection
-
-1. **Apply Convolution**: The Prewitt operator is applied to the image by convolving the image with the masks. For each pixel in the image, the neighborhood around it is multiplied by the kernel, and the results are summed up. This results in two images: one for the vertical gradient (\( G_y \)) and one for the horizontal gradient (\( G_x \)).
-
-2. **Magnitude Calculation**: The magnitude of the gradient at each pixel is computed by combining the results of the horizontal and vertical gradients:
+For the horizontal gradient $$\( G_x \)$$:  
 
 $$
-G = \sqrt{G_x^2 + G_y^2}
-$$
+G_x = \begin{bmatrix}  
+-1 & -1 & -1 \\  
+0 & 0 & 0 \\  
+1 & 1 & 1  
+\end{bmatrix}  
+$$  
 
-3. **Thresholding**: To identify the edges, the magnitude is thresholded. Pixels with gradients above a certain threshold are considered part of the edge, while others are discarded.
+### Discrete Gradient Approximation  
+
+Let $$\( I(x, y) \)$$ represent the image intensity at pixel coordinates $$\( (x, y) \)$$. The discrete approximations to the partial derivatives are computed as: 
+
+$$
+\partial_x I(x, y) \approx \sum_{i=-1}^{1} \sum_{j=-1}^{1} G_x(i, j) \cdot I(x+i, y+j)  
+$$  
+
+
+$$
+\partial_y I(x, y) \approx \sum_{i=-1}^{1} \sum_{j=-1}^{1} G_y(i, j) \cdot I(x+i, y+j)  
+$$  
+
+Using a general summation over the image domain:
+
+$$
+(G_x * I)(x, y) = \sum_{m=1}^{M} \sum_{n=1}^{N} G_x(m, n) \cdot I(x+m-2, y+n-2)  
+$$  
+
+$$
+(G_y * I)(x, y) = \sum_{m=1}^{M} \sum_{n=1}^{N} G_y(m, n) \cdot I(x+m-2, y+n-2)  
+$$  
+
+where $$\( M \)$$ and $$\( N \)$$ are the dimensions of the kernels.  
+
+### Gradient Magnitude  
+
+The magnitude of the gradient at a pixel is computed as:  
+
+$$
+G(x, y) = \sqrt{\left(\partial_x I(x, y)\right)^2 + \left(\partial_y I(x, y)\right)^2}  
+$$  
+
+For computational efficiency, the gradient magnitude is often approximated as: 
+
+$$
+G(x, y) \approx |\partial_x I(x, y)| + |\partial_y I(x, y)|  
+$$  
+
+### Gradient Direction  
+
+The direction of the gradient is given by:  
+
+$$
+\theta(x, y) = \tan^{-1}\left(\frac{\partial_y I(x, y)}{\partial_x I(x, y)}\right)  
+$$  
+
+---
+
+## Process of Edge Detection  
+
+### Convolution  
+
+The edge detection process begins by convolving the image $$\( I(x, y) \)$$ with the Prewitt kernels $$\( G_x \)$$ and $$\( G_y \)$$. Mathematically, this operation for each pixel $$\( (x, y) \)$$ is expressed as:  
+
+Horizontal gradient:  
+
+$$
+(G_x * I)(x, y) = \sum_{i=-1}^{1} \sum_{j=-1}^{1} G_x(i, j) \cdot I(x+i, y+j)  
+$$  
+
+Vertical gradient:
+
+$$
+(G_y * I)(x, y) = \sum_{i=-1}^{1} \sum_{j=-1}^{1} G_y(i, j) \cdot I(x+i, y+j)  
+$$  
+
+### Gradient Magnitude and Direction  
+
+The gradients computed using the convolution operation are combined to form the gradient magnitude and direction. The magnitude at each pixel is: 
+
+$$
+G(x, y) = \sqrt{\left(\sum_{i=-1}^{1} \sum_{j=-1}^{1} G_x(i, j) \cdot I(x+i, y+j)\right)^2 + \left(\sum_{i=-1}^{1} \sum_{j=-1}^{1} G_y(i, j) \cdot I(x+i, y+j)\right)^2}  
+$$  
+
+The direction is similarly computed as:  
+
+$$
+\theta(x, y) = \tan^{-1}\left(\frac{\sum_{i=-1}^{1} \sum_{j=-1}^{1} G_y(i, j) \cdot I(x+i, y+j)}{\sum_{i=-1}^{1} \sum_{j=-1}^{1} G_x(i, j) \cdot I(x+i, y+j)}\right)  
+$$  
+
+### Thresholding  
+
+Edges are identified by applying a threshold $$\( T \)$$ to the gradient magnitude. This is expressed as:  
+
+$$
+E(x, y) =  
+\begin{cases}  
+1, & \text{if } G(x, y) \geq T \\  
+0, & \text{otherwise}  
+\end{cases}  
+$$  
+
+### Continuous Interpretation  
+
+The Prewitt operator approximates the partial derivatives of $$\( I(x, y) \)$$:  
+
+$$
+\partial_x I(x, y) \approx \frac{I(x+1, y) - I(x-1, y)}{2}  
+$$  
+
+$$
+\partial_y I(x, y) \approx \frac{I(x, y+1) - I(x, y-1)}{2}  
+$$  
+
+This corresponds to the central difference method in numerical differentiation.  
+
 
 ---
 
