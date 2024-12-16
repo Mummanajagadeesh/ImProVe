@@ -11,6 +11,9 @@ ImProVe supports a wide array of image processing functionalities categorized in
 - [X] **Sobel Operator**: Detects edges by computing gradients in horizontal and vertical directions.
 - [X] **Prewitt Operator**: Similar to Sobel but uses different kernel values.
 - [X] **Roberts Cross Operator**: Uses a 2x2 kernel for edge detection.
+- [X] **Robinson Compass Operator**: Uses eight directional masks to detect edges with specific orientation sensitivity.  
+- [X] **Kirsch Compass Operator**: Detects edges by applying a set of 3x3 masks to enhance edges in various directions.  
+- [X] **Laplacian Operator**: Captures edges by computing the second derivative of the image, highlighting regions of rapid intensity change. 
 - [ ] **Laplacian of Gaussian (LoG)**: Combines edge detection with noise reduction.
 - [ ] **Canny Edge Detection**: Advanced edge detection using gradients, non-maximum suppression, and thresholding.
 - [ ] **Harris Corner Detection**: Identifies corners by analyzing intensity gradients.
@@ -46,6 +49,8 @@ ImProVe supports a wide array of image processing functionalities categorized in
 - [X] **Scaling**: Resizes the image while preserving aspect ratio.
 - [X] **Translation**: Shifts the image position.
 - [X] **Shearing**: Distorts the image by shifting rows or columns.
+- [X] **Cropping**: Extracts a rectangular region from the image.  
+- [X] **Reflection**: Flips the image across a specified axis (horizontal, vertical, or diagonal).
 - [ ] **Affine Transformations**: Combines translation, scaling, rotation, and shearing.
 
 ### **7. Histogram-Based Processing**
