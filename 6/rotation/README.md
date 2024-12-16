@@ -105,12 +105,15 @@ For coloured images:
 
 - **`img2rgb.py`**: Converts the input image (`lena_org.png`) into three separate text files representing the pixel values for the red, green, and blue channels.
 - **`rotate.v`**: Rotates all three channel data (red, green, and blue) by the same angle and outputs the transformed pixel values into corresponding text files.
+- **`rotate-full.v`**: Outputs full image taking diagonal as height and width.
 - **`rgb2img.py`**: Combines the rotated red, green, and blue channel data into a single image (`lena_rot.jpg`).
 
 
 
-| Original Image           | 30° Rotated Image          |  
-|---------------------------|----------------------------|  
-| ![Original Image](lena_org.png) | ![30° Rotated](lena_rot.jpg) |  
+| Original Image           | 30° Rotated Image          | 30° Rotated Image  Full     |  
+|---------------------------|----------------------------|----------------------------|
+| ![Original Image](lena_org.png) | ![30° Rotated](lena_rot.jpg) | ![30° Rotated Full](lena_rot_full.jpg) |
+
+
 
 
