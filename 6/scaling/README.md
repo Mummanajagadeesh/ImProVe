@@ -105,4 +105,17 @@ For colored images, the scaling process is applied independently to the red, gre
 |---------------------------|----------------------------|  
 | ![Original Image](lena_org.png) | ![4V3H Scaled](lena_scale.jpg) |  
 
+---
 
+**Note:**  
+
+For supporting a Lena image of size **512x512**, modify line 13 in `scale.v` as follows:  
+
+```verilog
+reg [7:0] scaled_pixel_data [0:2047][0:2047];
+```  
+
+This change ensures support for a maximum of **2048 pixels** on either side, which accounts for:  
+
+```
+2048 = MAX(4,3) * MAX(512*512)
