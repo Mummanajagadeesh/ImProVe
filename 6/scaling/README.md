@@ -12,25 +12,76 @@ This project demonstrates image scaling and resizing for both grayscale and colo
 
 ## Mathematical Details  
 
+### Image Dimensions  
+
+Given the original image dimensions: 
+
+$$
+\[
+\text{Original Rows} = \text{ROWS}, \quad \text{Original Columns} = \text{COLS},
+\] 
+$$
+
+the dimensions of the scaled image are calculated as:  
+
+$$
+\[
+\text{New Rows} = \text{ROWS} \cdot M, \quad \text{New Columns} = \text{COLS} \cdot N,
+\]  
+$$
+
+where $$\( M \)$$ and $$\( N \)$$ are the vertical and horizontal scaling factors, respectively.
+
 ### Scaling Transformation  
 
-The scaling process maps each pixel in the input image to its corresponding position in the scaled output image using the specified vertical (M) and horizontal (N) scaling factors.  
-
-For each pixel $$(j, i)$$ in the input image:  
+For each pixel in the scaled image at position $$\( (i, j) \)$$, its corresponding coordinates $$\( (i', j') \)$$ in the original image are computed as:  
 
 $$
-j' = j \cdot N, \quad i' = i \cdot M
-$$  
+\[
+i' = \left\lfloor \frac{i}{M} \right\rfloor, \quad j' = \left\lfloor \frac{j}{N} \right\rfloor.
+\] 
+$$
 
-The output image dimensions are determined as follows:  
+Here, the floor operation $$(\(\lfloor x \rfloor\))$$ ensures that the computed coordinates map to integer indices in the original image.
+
+### Bounds Check  
+
+To avoid accessing pixels outside the bounds of the original image, the coordinates $$\( (i', j') \)$$ must satisfy:  
 
 $$
-\text{Output Width} = \text{Input Width} \cdot N, \quad \text{Output Height} = \text{Input Height} \cdot M
-$$  
+\[
+0 \leq i' < \text{ROWS}, \quad 0 \leq j' < \text{COLS}.
+\]  
+$$
 
-### Nearest Neighbor Interpolation  
+If the condition is met, the pixel value in the original image at coordinates $$\((i', j')\)$$ is assigned to the corresponding position $$\((i, j)\)$$ in the scaled image.  
 
-During the scaling process, nearest neighbor interpolation is used to assign pixel values to the scaled image. This involves mapping the integer coordinates of the input pixel to the nearest corresponding coordinate in the output image.  
+The pixel value assignment can be expressed as follows:  
+
+For the scaled image:
+
+$$
+P_\text{scaled}(i, j)
+$$
+
+and for the original image:
+
+$$
+P_\text{original}(i', j'),
+$$
+
+the relationship is:
+
+$$
+P_\text{scaled}(i, j) = P_\text{original}(i', j').
+$$
+
+
+
+### Nearest-Neighbor Interpolation  
+
+Nearest-neighbor interpolation selects the closest pixel in the original image to approximate the value of a pixel in the scaled image. The algorithm essentially "stretches" or "shrinks" the original image by duplicating or discarding pixel values.
+  
 
 ---
 
