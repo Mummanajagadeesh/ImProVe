@@ -99,6 +99,11 @@ The following results show the visual effects of rotating the input image by var
 |---------------------------|----------------------------|----------------------------|----------------------------|----------------------------|  
 | ![Input Image](input_image.jpg) | ![30° Rotated](30deg.jpg) | ![45° Rotated](45deg.jpg) | ![60° Rotated](60deg.jpg) | ![90° Rotated](90deg.jpg) |  
 
+
+| Original Image           | 30° Rotated Image Full          |
+|---------------------------|----------------------------|
+| ![Input Image](input_image.jpg) | ![30° Rotated Full](output_image_rot_full.jpg) | 
+
 ---
 
 For coloured images:
