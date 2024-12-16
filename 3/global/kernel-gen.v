@@ -1,0 +1,69 @@
+module global_threshold;
+    // Parameters for the size of the image
+    parameter ROWS = 512;  // Change based on your input image dimensions
+    parameter COLS = 512;
+    parameter THRESHOLD = 192; // Global threshold value
+
+    // File handles
+    integer input_file, output_file;
+    integer i, j, pixel_value, scan_result;
+
+    // Memory to store the image
+    reg [7:0] image[0:ROWS-1][0:COLS-1];
+    reg [7:0] output_image[0:ROWS-1][0:COLS-1];
+
+    initial begin
+        // Open input and output files
+        input_file = $fopen("lena_b.txt", "r");
+        output_file = $fopen("lena_192b.txt", "w");
+
+        if (input_file == 0) begin
+            $display("Error: Cannot open input_image.txt");
+            $finish;
+        end
+
+        if (output_file == 0) begin
+            $display("Error: Cannot open output_image.txt");
+            $finish;
+        end
+
+        // Read the image data from the input file
+        for (i = 0; i < ROWS; i = i + 1) begin
+            for (j = 0; j < COLS; j = j + 1) begin
+                scan_result = $fscanf(input_file, "%d", pixel_value);
+                if (scan_result != 1) begin
+                    $display("Error reading pixel at row %d, col %d", i, j);
+                    $finish;
+                end
+                image[i][j] = pixel_value[7:0]; // Store 8-bit pixel value
+            end
+        end
+
+        // Close the input file after reading
+        $fclose(input_file);
+
+        // Apply the global threshold
+        for (i = 0; i < ROWS; i = i + 1) begin
+            for (j = 0; j < COLS; j = j + 1) begin
+                if (image[i][j] >= THRESHOLD)
+                    output_image[i][j] = 8'd255; // Set to max intensity
+                else
+                    output_image[i][j] = 8'd0;   // Set to min intensity
+            end
+        end
+
+        // Write the processed image data to the output file
+        for (i = 0; i < ROWS; i = i + 1) begin
+            for (j = 0; j < COLS; j = j + 1) begin
+                $fwrite(output_file, "%d ", output_image[i][j]);
+            end
+            $fwrite(output_file, "\n");
+        end
+
+        // Close the output file after writing
+        $fclose(output_file);
+
+        $display("Image processing complete. Output written to output_image.txt");
+        $finish;
+    end
+endmodule
