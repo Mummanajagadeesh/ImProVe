@@ -20,20 +20,14 @@ This project demonstrates image cropping for grayscale images using Verilog. The
 Image cropping involves extracting a rectangular region from the input image defined by the top-left coordinates $$\( (\text{CROP}_X1, \text{CROP}_Y1) \)$$ and the bottom-right coordinates $$\( (\text{CROP}_X2, \text{CROP}_Y2) \)$$. The dimensions of the cropped region are given by:
 
 $$
-\[
 \text{Cropped Rows} = \text{CROP}_Y2 - \text{CROP}_Y1 + 1
-\]
-\[
 \text{Cropped Columns} = \text{CROP}_X2 - \text{CROP}_X1 + 1
-\]
 $$
 
 For each pixel in the cropped region, the pixel value in the original image at coordinates $$\( (i, j) \)$$ is assigned to the corresponding position in the cropped image:
 
 $$
-\[
 P_{\text{cropped}}(i, j) = P_{\text{original}}(\text{CROP}_Y1 + i, \text{CROP}_X1 + j)
-\]
 $$
 
 ---
@@ -43,9 +37,7 @@ $$
 The cropping coordinates must satisfy the following conditions to ensure the cropped region lies entirely within the bounds of the original image:
 
 $$
-\[
 0 \leq \text{CROP}_X1 < \text{CROP}_X2 < \text{COLS}, \quad 0 \leq \text{CROP}_Y1 < \text{CROP}_Y2 < \text{ROWS}
-\]
 $$
 
 Pixels outside the defined cropping area are excluded, and the resulting image contains only the selected region.
