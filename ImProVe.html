@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Animation</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            color: white;
+            font-family: Monaco, monospace;
+            overflow: hidden;
+        }
+
+        #text-container {
+            font-size: 4rem;
+            white-space: nowrap;
+            text-align: center;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 0.1em;
+            height: 1em;
+            background-color: white;
+            margin-left: 2px;
+            animation: blink 0.6s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div id="text-container"></div>
+
+    <script>
+        const fullText = "Image Processing Using Verilog";
+        const compressSteps = [
+            "Image Processing Using Verilo",
+            "Image Processing Using Veril",
+            "Image Processing Using Veri",
+            "Image Processing Using Ver",
+            "Image Processing Using Ve",
+            "Image Processing UsingVe",
+            "Image Processing UsinVe",
+            "Image Processing UsiVe",
+            "Image Processing UsVe",
+            "Image Processing UVe",
+            "Image Processing Ve",
+            "Image ProcessingVe",
+            "Image ProcessinVe",
+            "Image ProcessiVe",
+            "Image ProcessVe",
+            "Image ProcesVe",
+            "Image ProceVe",
+            "Image ProcVe",
+            "Image ProVe",
+            "ImageProVe",
+            "ImagProVe",
+            "ImaProVe",
+            "ImProVe"
+        ];
+
+        const expandSteps = [
+            "ImaProVe",
+            "ImagProVe",
+            "ImageProVe",
+            "Image ProVe",
+            "Image ProcVe",
+            "Image ProceVe",
+            "Image ProcesVe",
+            "Image ProcessVe",
+            "Image ProcessiVe",
+            "Image ProcessinVe",
+            "Image ProcessingVe",
+            "Image Processing Ve",
+            "Image Processing UsingVe",
+            "Image Processing Using Ve",
+            "Image Processing Using Ver",
+            "Image Processing Using Veri",
+            "Image Processing Using Veril",
+            "Image Processing Using Verilo",
+            "Image Processing Using Verilog",
+            "Image Processing Using Verilog"
+        ];
+
+        const container = document.getElementById("text-container");
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function typeText() {
+            container.innerHTML = ""; 
+            for (let i = 0; i <= fullText.length; i++) {
+                container.innerHTML = fullText.slice(0, i) + '<span class="cursor"></span>';
+                await sleep(100);
+            }
+        }
+
+        async function compressText() {
+            for (let i = 0; i < compressSteps.length; i++) {
+                container.innerHTML = compressSteps[i] + '<span class="cursor"></span>';
+                await sleep(100);
+            }
+        }
+
+        async function expandText() {
+            for (let i = 0; i < expandSteps.length; i++) {
+                container.innerHTML = expandSteps[i] + '<span class="cursor"></span>';
+                await sleep(100);
+            }
+        }
+
+        async function animateLoop() {
+            while (true) {
+                await typeText();
+                await sleep(500); 
+                await compressText();
+                await sleep(500); 
+                await expandText();
+                await sleep(500); 
+            }
+        }
+
+        animateLoop();
+    </script>
+</body>
+</html>
