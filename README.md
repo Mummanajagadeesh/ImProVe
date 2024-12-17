@@ -96,20 +96,15 @@ ImProVe supports a wide array of image processing functionalities categorized in
 ---
 
 ## **Tools and Technologies**
-- [ ] **Verilog**: Core HDL used to implement all image processing algorithms.
-- [ ] **Python**: For preprocessing image data into a format compatible with Verilog.
-- [ ] **Simulation Tools**: ModelSim, Vivado Simulator for testing and verification.
-- [ ] **Hardware Platforms**: FPGA development boards for real-time image processing.
-- [ ] **Additional Tools**:
-  - [ ] OpenCV or MATLAB for visualization and preprocessing.
-  - [ ] Memory initialization using `$readmemh` in Verilog.
+- **Icarus Verilog 12.0**: Core HDL used to implement all image processing algorithms
+- **Python 3.12**: For preprocessing image data into a format compatible with Verilog
 
 ---
 
 ## **How to Use**
 1. **Preprocessing**: 
    - Convert input images to grayscale or desired format using Python or MATLAB.
-   - Save the image data as a `.txt` or `.coe` file for loading into Verilog.
+   - Save the image data as a `.txt` file for loading into Verilog.
 2. **Simulation**:
    - Load image data into a Verilog testbench using `$readmemh`.
    - Run simulations to validate the implemented algorithm.
