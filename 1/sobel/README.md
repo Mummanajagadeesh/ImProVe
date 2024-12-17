@@ -315,3 +315,4 @@ This implementation is done using **Icarus Verilog 12.0** for the hardware descr
 |------------------|-----------------------------|-------------------------------|--------------------------|
 | ![Cameraman](cameraman.jpg) | ![Cameraman Vertical](cameraman_ver.jpg) | ![Cameraman Horizontal](cameraman_hor.jpg) | ![Cameraman Combined](cameraman_combined.jpg) |
 | ![Cube](cube.jpg) | ![Cube Vertical](cube_ver.jpg) | ![Cube Horizontal](cube_hor.jpg) | ![Cube Combined](cube_combined.jpg) |
+| ![Lily](lily.jpg) | ![Lily Vertical](lily_ver.jpg) | ![Lily Horizontal](lily_hor.jpg) | ![Lily Combined](lily_combined.jpg) |
