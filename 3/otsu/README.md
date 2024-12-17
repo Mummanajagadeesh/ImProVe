@@ -52,6 +52,18 @@ $$
 |-----------------------|-------------------------|
 | ![input_image.jpg](input_image.jpg) | ![otsu.jpg](otsu.jpg) |
 
+
+### Histogram and Threshold for Grayscale Image
+
+The threshold $$\( T \)$$ is marked on the histogram:
+
+$$
+T = \arg \min_T \left[ \sigma_w^2(T) \right]
+$$
+
+| ![hist_input](hist.jpg) | ![hist_otsu](hist_otsu.jpg) |
+|-------------------------------|-----------------------------|
+
 ---
 
 ### Colored Images
