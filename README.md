@@ -25,9 +25,11 @@ ImProVe supports a wide array of image processing functionalities categorized in
 - [ ] **Bilateral Filter**: Preserves edges while reducing noise by combining spatial and intensity information.
 
 ### **3. Thresholding and Binarization**
-- [ ] **Global Thresholding**: Converts grayscale images to binary using a fixed threshold.
-- [ ] **Adaptive Thresholding**: Dynamically computes thresholds based on local intensity.
-- [ ] **Otsu’s Method**: Automatically finds the optimal threshold for binarization.
+- [X] **Global Thresholding**: Converts grayscale images to binary using a fixed threshold.
+- [X] **Adaptive Thresholding**: Dynamically computes thresholds based on local intensity.
+- [X] **Otsu’s Method**: Automatically finds the optimal threshold for binarization.
+- [X] **Color Thresholding**: Applies thresholding on color spaces (e.g., RGB, HSV, LAB) to segment specific color ranges.  
+
 
 ### **4. Morphological Operations**
 - [ ] **Erosion**: Shrinks objects by removing pixels on boundaries.
