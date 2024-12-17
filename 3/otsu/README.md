@@ -11,9 +11,7 @@ Otsu's method aims to separate an image into two classes: foreground and backgro
 The threshold $$\( T \)$$ is chosen such that the intra-class variance $$\( \sigma_w^2 \)$$ is minimized:
 
 $$
-\[
 \sigma_w^2(T) = \omega_0(T) \sigma_0^2(T) + \omega_1(T) \sigma_1^2(T)
-\]
 $$
 
 Where:
@@ -24,25 +22,19 @@ $$\( \sigma_0^2 \)$$ and $$\( \sigma_1^2 \)$$ are the variances of the two class
 The probabilities $$\( \omega_0 \)$$ and $$\( \omega_1 \)$$ are defined as:
 
 $$
-\[
 \omega_0(T) = \sum_{i=0}^T p(i), \quad \omega_1(T) = \sum_{i=T+1}^{L-1} p(i)
-\]
 $$
 
 The class means $$\( \mu_0 \)$$ and $$\( \mu_1 \)$$ are given by:
 
 $$
-\[
 \mu_0(T) = \frac{\sum_{i=0}^T i \, p(i)}{\omega_0(T)}, \quad \mu_1(T) = \frac{\sum_{i=T+1}^{L-1} i \, p(i)}{\omega_1(T)}
-\]
 $$
 
 The between-class variance $$\( \sigma_b^2 \)$$, which Otsu maximizes, is:
 
 $$
-\[
 \sigma_b^2(T) = \omega_0(T) \omega_1(T) \left[ \mu_1(T) - \mu_0(T) \right]^2
-\]
 $$
 
 ---
