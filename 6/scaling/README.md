@@ -17,17 +17,13 @@ This project demonstrates image scaling and resizing for both grayscale and colo
 Given the original image dimensions: 
 
 $$
-\[
 \text{Original Rows} = \text{ROWS}, \quad \text{Original Columns} = \text{COLS},
-\] 
 $$
 
 the dimensions of the scaled image are calculated as:  
 
 $$
-\[
-\text{New Rows} = \text{ROWS} \cdot M, \quad \text{New Columns} = \text{COLS} \cdot N,
-\]  
+\text{New Rows} = \text{ROWS} \cdot M, \quad \text{New Columns} = \text{COLS} \cdot N,  
 $$
 
 where $$\( M \)$$ and $$\( N \)$$ are the vertical and horizontal scaling factors, respectively.
@@ -37,9 +33,7 @@ where $$\( M \)$$ and $$\( N \)$$ are the vertical and horizontal scaling factor
 For each pixel in the scaled image at position $$\( (i, j) \)$$, its corresponding coordinates $$\( (i', j') \)$$ in the original image are computed as:  
 
 $$
-\[
-i' = \left\lfloor \frac{i}{M} \right\rfloor, \quad j' = \left\lfloor \frac{j}{N} \right\rfloor.
-\] 
+i' = \left\lfloor \frac{i}{M} \right\rfloor, \quad j' = \left\lfloor \frac{j}{N} \right\rfloor. 
 $$
 
 Here, the floor operation $$(\(\lfloor x \rfloor\))$$ ensures that the computed coordinates map to integer indices in the original image.
@@ -49,9 +43,7 @@ Here, the floor operation $$(\(\lfloor x \rfloor\))$$ ensures that the computed 
 To avoid accessing pixels outside the bounds of the original image, the coordinates $$\( (i', j') \)$$ must satisfy:  
 
 $$
-\[
 0 \leq i' < \text{ROWS}, \quad 0 \leq j' < \text{COLS}.
-\]  
 $$
 
 If the condition is met, the pixel value in the original image at coordinates $$\((i', j')\)$$ is assigned to the corresponding position $$\((i, j)\)$$ in the scaled image.  
