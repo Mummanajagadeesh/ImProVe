@@ -103,10 +103,10 @@ ImProVe supports a wide array of image processing functionalities categorized in
 
 ## **How to Use**
 1. **Preprocessing**: 
-   - Convert input images to grayscale or desired format using Python or MATLAB.
+   - Convert input images to grayscale into `.txt` format using python.
    - Save the image data as a `.txt` file for loading into Verilog.
 2. **Simulation**:
-   - Load image data into a Verilog testbench using `$readmemh`.
+   - Load image data into a Verilog testbench using `$fopen`.
    - Run simulations to validate the implemented algorithm.
 3. **Hardware Implementation**:
    - Synthesize and deploy the Verilog code onto an FPGA.
