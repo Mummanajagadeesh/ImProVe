@@ -290,3 +290,13 @@ This implementation is done using **Icarus Verilog 12.0** for the hardware descr
 **Icarus Verilog 12.0** for hardware description and simulation. This tool is used to compile the Verilog code for the Prewitt operator and perform edge detection in hardware simulation.
 
 **Python 3.12.1** for image processing and visualization. Python handles the conversion between image formats, binary data handling, and applies the edge detection processing to visualize the results.
+
+
+
+## More Images
+
+
+| Original         | Positive Mask Output | Negative Mask Output | Combined |
+|------------------|-----------------------------|-------------------------------|--------------------------|
+| ![Cameraman](cameraman.jpg) | ![Cameraman Positive](cameraman_pos.jpg) | ![Cameraman Negative](cameraman_hor.jpg) | ![Cameraman Combined](cameraman_combined.jpg) |
+| ![Cube](cube.jpg) | ![Cube Positive](cube_pos.jpg) | ![Cube  Negative](cube_neg.jpg) | ![Cube Combined](cube_combined.jpg) |
