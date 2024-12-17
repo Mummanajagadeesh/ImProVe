@@ -298,5 +298,5 @@ This implementation is done using **Icarus Verilog 12.0** for the hardware descr
 
 | Original         | Positive Mask Output | Negative Mask Output | Combined |
 |------------------|-----------------------------|-------------------------------|--------------------------|
-| ![Cameraman](cameraman.jpg) | ![Cameraman Positive](cameraman_pos.jpg) | ![Cameraman Negative](cameraman_hor.jpg) | ![Cameraman Combined](cameraman_combined.jpg) |
+| ![Cameraman](cameraman.jpg) | ![Cameraman Positive](cameraman_pos.jpg) | ![Cameraman Negative](cameraman_neg.jpg) | ![Cameraman Combined](cameraman_combined.jpg) |
 | ![Cube](cube.jpg) | ![Cube Positive](cube_pos.jpg) | ![Cube  Negative](cube_neg.jpg) | ![Cube Combined](cube_combined.jpg) |
