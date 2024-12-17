@@ -305,3 +305,13 @@ This implementation is done using **Icarus Verilog 12.0** for the hardware descr
 **Icarus Verilog 12.0** for hardware description and simulation. This tool is used to compile the Verilog code for the Prewitt operator and perform edge detection in hardware simulation.
 
 **Python 3.12.1** for image processing and visualization. Python handles the conversion between image formats, binary data handling, and applies the edge detection processing to visualize the results.
+
+
+
+## More Images
+
+
+| Original         | Vertical Gradient Detection | Horizontal Gradient Detection | Combined Prewitt Filter |
+|------------------|-----------------------------|-------------------------------|--------------------------|
+| ![Cameraman](cameraman.jpg) | ![Cameraman Vertical](cameraman_ver.jpg) | ![Cameraman Horizontal](cameraman_hor.jpg) | ![Cameraman Combined](cameraman_combined.jpg) |
+| ![Cube](cube.jpg) | ![Cube Vertical](cube_ver.jpg) | ![Cube Horizontal](cube_hor.jpg) | ![Cube Combined](cube_combined.jpg) |
