@@ -61,8 +61,10 @@ $$
 T = \arg \min_T \left[ \sigma_w^2(T) \right]
 $$
 
-| ![hist_input](hist.jpg) | ![hist_otsu](hist_otsu.jpg) |
+| Input Image Histogram | Output Image Histogram -- 123 threshold|
 |-------------------------------|-----------------------------|
+| ![hist_input](hist.jpg) | ![hist_otsu](hist_otsu.jpg) |
+
 
 ---
 
