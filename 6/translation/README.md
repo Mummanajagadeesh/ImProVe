@@ -36,9 +36,7 @@ $$
 To ensure the translated coordinates $$\( (i', j') \)$$ remain within the image dimensions, they must satisfy the following conditions:  
 
 $$
-\[
 0 \leq i' < \text{ROWS}, \quad 0 \leq j' < \text{COLS}.
-\] 
 $$ 
 
 If the conditions are satisfied, the pixel value in the original image at coordinates $$\( (i, j) \)$$ is assigned to the new position $$\( (i', j') \)$$ in the translated image. Pixels that do not fall within the bounds of the translated image are set to black (value 0).  
@@ -46,9 +44,7 @@ If the conditions are satisfied, the pixel value in the original image at coordi
 The pixel value assignment is expressed as:  
 
 $$
-\[
-P_{\text{translated}}(i', j') = P_{\text{original}}(i, j).
-\]  
+P_{\text{translated}}(i', j') = P_{\text{original}}(i, j). 
 $$
 
 
