@@ -17,17 +17,13 @@ This project demonstrates image shearing for both grayscale and colored images u
 The shearing transformation equations are:
 
 $$
-\[
 x_\text{new} = x + S_x \cdot y, \quad y_\text{new} = y + S_y \cdot x
-\]
 $$
 
 In the code, these are implemented as:
 
 $$
-\[
 \text{sheared\_i} = y + S_y \cdot x, \quad \text{sheared\_j} = x + S_x \cdot y
-\]
 $$
 
 Here, `sheared_i` and `sheared_j` are the new pixel positions in the sheared image, corresponding to $$y_\text{new}$$ and $$x_\text{new}$$, respectively.  
@@ -41,9 +37,7 @@ The shearing factors $$\(S_x\)$$ and $$\(S_y\)$$ are floating-point values. Duri
 The dimensions of the sheared image are calculated as:
 
 $$
-\[
 \text{NewRows} = \text{Rows} + \lceil |S_y| \cdot \text{Cols} \rceil, \quad \text{NewCols} = \text{Cols} + \lceil |S_x| \cdot \text{Rows} \rceil
-\]
 $$
 
 Here, the ceiling function is applied because Verilog's `$rtoi()` truncates fractional values to integers, ensuring the new dimensions accommodate the maximum displacement due to shearing.
@@ -61,17 +55,13 @@ $$
 To ensure the sheared image remains within valid dimensions, the new coordinates $$\( x' \)$$ and $$\( y' \)$$ must satisfy:
 
 $$
-\[
 0 \leq x' < \text{NewCols}
-\]
 $$
 
 and  
 
 $$
-\[
 0 \leq y' < \text{NewRows}.
-\]
 $$
 
 ### Padding
