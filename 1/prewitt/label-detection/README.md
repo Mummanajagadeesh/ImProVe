@@ -1,4 +1,5 @@
-# Label Detection - by finding contour with largest area in given image 
+# Label Detection
+### - by finding contour with largest area in the given image 
 
 **img2bin.py**  
 This script converts an input image file (`ocr_test_1.jpeg`) into a binary text representation (`input_image.txt`). This text file serves as the input for subsequent processing.  
