@@ -116,20 +116,7 @@ ImProVe supports a wide array of image processing functionalities categorized in
 
 ---
 
-## **Applications**
-- Real-time edge detection in robotics.
-- Medical image enhancement and noise reduction.
-- Object recognition and segmentation in surveillance systems.
-- Image compression for efficient storage and transmission.
 
----
-
-## **Future Extensions**
-- Integration with machine learning for hybrid processing.
-- Support for real-time video streams.
-- Hardware optimization for lower latency and power consumption.
-
----
 
 ## **Contributors**
 - **Jagadeesh** mummanajagadeesh97@gmail.com
