@@ -1,3 +1,5 @@
+# Label Detection - by finding contour with largets area in given image 
+
 **img2bin.py**  
 This script converts an input image file (`ocr_test_1.jpeg`) into a binary text representation (`input_image.txt`). This text file serves as the input for subsequent processing.  
 
@@ -17,6 +19,8 @@ Converts the binary output (`output_image.txt`) into an image file (`output_imag
    - The result is a red bounding box overlaid on the original image.  
    - Outputs the final overlaid image as `output_image_with_box.jpg`.  
 
+
+## Visual Examples
 
 | **Original Image**       | **After Vertical Prewitt** | **After Horizontal Prewitt** | **After Full Prewitt (Sum Approximation)** |
 |---------------------------|----------------------------|------------------------------|--------------------------------------------|
