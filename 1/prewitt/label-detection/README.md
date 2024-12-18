@@ -25,3 +25,8 @@ Converts the binary output (`output_image.txt`) into an image file (`output_imag
 | **Original Image**       | **After Full Prewitt (Sum Approximation)** | **Binary Box** | **Overlayed Image with Box** |
 |---------------------------|----------------------------|------------------------------|--------------------------------------------|
 | ![ocr_test_1.jpeg](ocr_test_1.jpeg) | ![sumapp.jpg](sumapp.jpg)        | ![box.jpg](output_image.jpg)          | ![bound.jpg](output_image_with_box.jpg)                   |
+
+
+| **Original Image**       | **After Full Prewitt (Sum Approximation)** | **Binary Box** | **Overlayed Image with Box** |
+|---------------------------|----------------------------|------------------------------|--------------------------------------------|
+| ![ocr_test_1.jpeg](ocr_test_2.jpg) | ![sumapp.jpg](prewcomb2.jpg)        | ![box.jpg](binarybox2.jpg)          | ![bound.jpg](boxedlabel2.jpg)                   |
