@@ -330,9 +330,9 @@ This implementation is done using **Icarus Verilog 12.0** for the hardware descr
 ## More Images
 
 
-| Original         | Vertical Gradient Detection | Horizontal Gradient Detection | Combined Prewitt Filter |
-|------------------|-----------------------------|-------------------------------|--------------------------|
-| ![Cameraman](cameraman.jpg) | ![Cameraman Vertical](cameraman_ver.jpg) | ![Cameraman Horizontal](cameraman_hor.jpg) | ![Cameraman Combined](cameraman_combined.jpg) |
-| ![Cube](cube.jpg) | ![Cube Vertical](cube_ver.jpg) | ![Cube Horizontal](cube_hor.jpg) | ![Cube Combined](cube_combined.jpg) |
-| ![Lily](lily.jpg) | ![Lily Vertical](lily_ver.jpg) | ![Lily Horizontal](lily_hor.jpg) | ![Lily Combined](lily_combined.jpg) |
+| Original         | Vertical Gradient Detection | Horizontal Gradient Detection | Combined Prewitt Filter | Prewitt with sum approximation |
+|------------------|-----------------------------|-------------------------------|--------------------------|--------------------------|
+| ![Cameraman](cameraman.jpg) | ![Cameraman Vertical](cameraman_ver.jpg) | ![Cameraman Horizontal](cameraman_hor.jpg) | ![Cameraman Combined](cameraman_combined.jpg) | ![Cameraman Combined2](cameraman_app.jpg) |
+| ![Cube](cube.jpg) | ![Cube Vertical](cube_ver.jpg) | ![Cube Horizontal](cube_hor.jpg) | ![Cube Combined](cube_combined.jpg) | ![Cube Combined2](cube_app.jpg) |
+| ![Lily](lily.jpg) | ![Lily Vertical](lily_ver.jpg) | ![Lily Horizontal](lily_hor.jpg) | ![Lily Combined](lily_combined.jpg) | ![Lily Combined2](lily_app.jpg) |
 
