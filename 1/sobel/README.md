@@ -317,4 +317,16 @@ This implementation is done using **Icarus Verilog 12.0** for the hardware descr
 | ![Cube](cube.jpg) | ![Cube Vertical](cube_ver.jpg) | ![Cube Horizontal](cube_hor.jpg) | ![Cube Combined](cube_combined.jpg) | ![Cube Combined2](cube_app.jpg) |
 | ![Lily](lily.jpg) | ![Lily Vertical](lily_ver.jpg) | ![Lily Horizontal](lily_hor.jpg) | ![Lily Combined](lily_combined.jpg) | ![Lily Combined2](lily_app.jpg) |
 
+## Observations on Combining Sobel Vertical and Horizontal Mask Outputs
 
+After analyzing various methods of combining the outputs of Sobel vertical and horizontal masks, the results are ranked as follows:
+
+| **Rank** | **Combination Method**                  | **Description**                                                                          |
+|----------|-----------------------------------------|-----------------------------------------------------------------------------------------|
+| 🥇 **1** | **Sum Approximation**                  | Provides the most accurate and visually clear results                                |
+| 🥈 **2** | **Dynamic Normalization**              | Delivers good quality with moderate computational adjustments                         |
+| 🥉 **3** | **Adaptive Thresholding**              | Produces reasonably effective results but is less consistent                           |
+| 4        | **Global Thresholding**                | Offers decent results but lacks adaptability for varying image conditions             |
+| 5        | **Simple Combination with Truncation** | The least effective method, leading to noticeable loss of detail and precision         |
+
+These rankings are based on a manual evaluation of the resulting images for clarity, detail retention, and consistency
