@@ -97,22 +97,22 @@ ImProVe supports a wide array of image processing functionalities categorized in
 
 ## **Tools and Technologies**
 - **Icarus Verilog 12.0**: Core HDL used to implement all image processing algorithms
-- **Python 3.12**: For preprocessing image data into a format compatible with Verilog
+- **Python 3.12**: For preprocessing image data into a format compatible with verilog
 
 ---
 
 ## **How to Use**
 1. **Preprocessing**: 
-   - Convert input images to grayscale into `.txt` format using python.
-   - Save the image data as a `.txt` file for loading into Verilog.
+   - Convert input images to grayscale into `.txt` format using python
+   - Save the image data as a `.txt` file for loading into verilog
 2. **Simulation**:
    - Load image data into a Verilog testbench using `$fopen`.
-   - Run simulations to validate the implemented algorithm.
+   - Run simulations to validate the implemented algorithm
 3. **Hardware Implementation**:
-   - Synthesize and deploy the Verilog code onto an FPGA.
-   - Use external interfaces (e.g., UART, AXI, SD Card) to provide input and retrieve output.
+   - Synthesize and deploy the Verilog code onto an FPGA
+   - Use external interfaces (e.g., UART, AXI, SD Card) to provide input and retrieve output
 4. **Output Verification**:
-   - Save the processed data and visualize it using Python or MATLAB.
+   - Save the processed data and visualize it using python
 
 ---
 
