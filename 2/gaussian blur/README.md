@@ -81,13 +81,41 @@ The following table demonstrates the effects of Gaussian blur on a color image:
 
 - **`guassian.v`**: Implements the Gaussian blur using a NxN kernel. It reads the pixel data from the input text file, applies the Gaussian filter, and outputs the blurred data to a text file
 
-## Comparison with kernels used
+## Comparison with Kernels Used
 
-| Original Image             | 3by3 kernel   | 5by5 kernel  | 7by7 kernel  | 9by9 kernel  |
-|----------------------------|---------------|--------------|--------------|--------------|
-| ![Original Image](input_image.jpg) | ![Blurred Image](3by3.jpg) | ![Blurred Image](5by5.jpg) | ![Blurred Image](7by7.jpg) | ![Blurred Image](9by9.jpg) |
-| 11by11 kernel             | 13by13 kernel   | 15by15 kernel  | 17by17 kernel  | 19by19 kernel  |
-|----------------------------|---------------|--------------|--------------|--------------|
-| ![Blurred Image](11by11.jpg) | ![Blurred Image](13by13.jpg) | ![Blurred Image](15by15.jpg) | ![Blurred Image](17by17.jpg) | ![Blurred Image](19by19.jpg) |
+<table>
+  <tr>
+    <td><b>Original Image</b></td>
+    <td><b>3x3 Kernel</b></td>
+    <td><b>5x5 Kernel</b></td>
+    <td><b>7x7 Kernel</b></td>
+    <td><b>9x9 Kernel</b></td>
+  </tr>
+  <tr>
+    <td><img src="input_image.jpg" alt="Original Image" /></td>
+    <td><img src="3by3.jpg" alt="Blurred Image (3x3)" /></td>
+    <td><img src="5by5.jpg" alt="Blurred Image (5x5)" /></td>
+    <td><img src="7by7.jpg" alt="Blurred Image (7x7)" /></td>
+    <td><img src="9by9.jpg" alt="Blurred Image (9x9)" /></td>
+  </tr>
+  <tr>
+    <td><b>11x11 Kernel</b></td>
+    <td><b>13x13 Kernel</b></td>
+    <td><b>15x15 Kernel</b></td>
+    <td><b>17x17 Kernel</b></td>
+    <td><b>19x19 Kernel</b></td>
+  </tr>
+  <tr>
+    <td><img src="11by11.jpg" alt="Blurred Image (11x11)" /></td>
+    <td><img src="13by13.jpg" alt="Blurred Image (13x13)" /></td>
+    <td><img src="15by15.jpg" alt="Blurred Image (15x15)" /></td>
+    <td><img src="17by17.jpg" alt="Blurred Image (17x17)" /></td>
+    <td><img src="19by19.jpg" alt="Blurred Image (19x19)" /></td>
+  </tr>
+</table>
+
+
+
+
 
 
