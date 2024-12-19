@@ -79,7 +79,7 @@ The following table demonstrates the effects of Gaussian blur on a color image:
 | ![Original Image](lily.jpg) | ![Grayscale Blurred Image](lily_gray.jpg) | ![Final RGB Blurred Image](output_lily.jpg) |  
 
 
-- **`guassian.v`**: Implements the Gaussian blur using a NxN kernel. It reads the pixel data from the input text file, applies the Gaussian filter, and outputs the blurred data to a text file
+- **`guassian-gen.v`**: Implements the Gaussian blur using a NxN kernel. It reads the pixel data from the input text file, applies the Gaussian filter, and outputs the blurred data to a text file
 
 ## Comparison with Kernels Used
 
