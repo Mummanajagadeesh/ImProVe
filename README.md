@@ -97,7 +97,7 @@ ImProVe supports a wide array of image processing functionalities categorized in
 
 ## **Tools and Technologies**
 - **Icarus Verilog 12.0**: Core HDL used to implement all image processing algorithms
-- **Python 3.12**: For preprocessing image data into a format compatible with verilog
+- **Python 3.12.1**: For preprocessing image data into a format compatible with verilog
 
 ---
 
