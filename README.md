@@ -19,7 +19,7 @@ ImProVe supports a wide array of image processing functionalities categorized in
 - [ ] **Harris Corner Detection**: Identifies corners by analyzing intensity gradients.
 
 ### **2. Noise Reduction and Smoothing**
-- [ ] **Gaussian Blur**: Smoothens and reduces noise using a Gaussian kernel.
+- [X] **Gaussian Blur**: Smoothens and reduces noise using a Gaussian kernel.
 - [ ] **Median Filter**: Replaces each pixel with the median of its neighborhood to remove noise.
 - [ ] **Box Filter (Mean Filter)**: Averages pixel values within a window for smoothing.
 - [ ] **Bilateral Filter**: Preserves edges while reducing noise by combining spatial and intensity information.
