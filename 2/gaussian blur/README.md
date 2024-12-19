@@ -35,8 +35,8 @@ G(x, y) = \frac{1}{2\pi\sigma^2} e^{-\frac{x^2 + y^2}{2\sigma^2}}
 $$
 
 Where:
-- \( \sigma \) is the standard deviation, controlling the amount of blur.
-- \( x \) and \( y \) are the coordinates relative to the center of the kernel.
+- $$\( \sigma \)$$ is the standard deviation, controlling the amount of blur.
+- $$\( x \)$$ and $$\( y \)$$ are the coordinates relative to the center of the kernel.
 
 The resulting blurred pixel value \( B(i, j) \) at position \( (i, j) \) is calculated by taking a weighted sum of the surrounding pixels in the image, as given by:
 
@@ -45,8 +45,8 @@ B(i, j) = \sum_{k=-1}^{1} \sum_{l=-1}^{1} I(i+k, j+l) G(k, l)
 $$
 
 Where:
-- \( I(i, j) \) is the pixel value at position \( (i, j) \) in the input image.
-- \( G(k, l) \) is the weight from the Gaussian kernel.
+- $$\( I(i, j) \)$$ is the pixel value at position $$\( (i, j) \)$$ in the input image.
+- $$\( G(k, l) \)$$ is the weight from the Gaussian kernel.
 
 ### Grayscale Gaussian Blur  
 
